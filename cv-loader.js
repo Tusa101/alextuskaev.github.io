@@ -1,5 +1,7 @@
 // ---------------------------------------------------------------------------
-// cv-loader.js — reads cv-data.json and populates the page
+// cv-loader.js — renders window.CV_DATA into the page.
+// CV_DATA is provided by lang.js from the active i18n pack (i18n/en.js, i18n/ru.js).
+// Re-runs on the `langchange` event to swap dynamic sections to the new language.
 // ---------------------------------------------------------------------------
 
 const ICONS = {
@@ -21,6 +23,14 @@ const ICONS = {
 
 /** Decode a base64-encoded contact string. Keeps PII out of plain-text source. */
 function d64(s) { try { return atob(s); } catch (_) { return ''; } }
+
+// Local alias for the translate function provided by lang.js. We use `const`
+// (not `function`) on purpose: a top-level `function t(){...}` would be hoisted
+// onto `window` as `window.t`, overwriting lang.js's translate and causing
+// infinite recursion the moment any t('key') call delegates to window.t.
+const t = (typeof window.t === 'function')
+  ? window.t
+  : function (key) { return '[' + key + ']'; };
 
 function el(tag, cls, html) {
   const e = document.createElement(tag);
@@ -57,35 +67,35 @@ function renderHero(d) {
 }
 
 function renderTerminal(d) {
-  const t = d.terminal;
+  const term = d.terminal;
   const p = d.personal;
 
-  const openToJson = JSON.stringify(t.openTo);
+  const openToJson = JSON.stringify(term.openTo);
 
-  const primaryTags  = t.stackPrimary.map(s => `<span class="t-tag">${s}</span>`).join('');
-  const secondaryTags = t.stackSecondary.map(s => `<span class="t-tag2">${s}</span>`).join('');
-  const tertiaryTags  = t.stackTertiary.map(s => `<span class="t-tag">${s}</span>`).join('');
+  const primaryTags  = term.stackPrimary.map(s => `<span class="t-tag">${s}</span>`).join('');
+  const secondaryTags = term.stackSecondary.map(s => `<span class="t-tag2">${s}</span>`).join('');
+  const tertiaryTags  = term.stackTertiary.map(s => `<span class="t-tag">${s}</span>`).join('');
 
-  const highlights = t.highlights.map(h =>
+  const highlights = term.highlights.map(h =>
     `<span class="t-key">${h.key}</span>:&nbsp;&nbsp;&nbsp;<span class="t-val">${h.value}</span>`
   ).join('<br>');
 
   document.getElementById('terminal-body').innerHTML = `
     <div class="t-line">
       <span class="t-prompt">❯</span>
-      <span class="t-cmd">alex --profile</span>
+      <span class="t-cmd">${t('terminal.cmd.profile')}</span>
     </div>
     <div class="t-out">
-      <span class="t-key">name</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">${p.firstName} ${p.lastName}</span><br>
-      <span class="t-key">role</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">${t.role}</span><br>
-      <span class="t-key">experience</span>:&nbsp;<span class="t-val">${t.experienceLabel}</span><br>
-      <span class="t-key">location</span>:&nbsp;&nbsp;&nbsp;<span class="t-val">${p.location.split(',')[1].trim()} ${p.locationFlag}</span><br>
-      <span class="t-key">languages</span>:&nbsp;&nbsp;<span class="t-val">EN · RU · HE</span><br>
-      <span class="t-key">open_to</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">${openToJson}</span>
+      <span class="t-key">${t('terminal.key.name')}</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">${p.firstName} ${p.lastName}</span><br>
+      <span class="t-key">${t('terminal.key.role')}</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">${term.role}</span><br>
+      <span class="t-key">${t('terminal.key.experience')}</span>:&nbsp;<span class="t-val">${term.experienceLabel}</span><br>
+      <span class="t-key">${t('terminal.key.location')}</span>:&nbsp;&nbsp;&nbsp;<span class="t-val">${p.location.split(',')[1].trim()} ${p.locationFlag}</span><br>
+      <span class="t-key">${t('terminal.key.languages')}</span>:&nbsp;&nbsp;<span class="t-val">${t('terminal.value.languages')}</span><br>
+      <span class="t-key">${t('terminal.key.openTo')}</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">${openToJson}</span>
     </div>
     <div class="t-line">
       <span class="t-prompt">❯</span>
-      <span class="t-cmd">alex --stack</span>
+      <span class="t-cmd">${t('terminal.cmd.stack')}</span>
     </div>
     <div class="t-out">
       ${primaryTags}<br>
@@ -94,7 +104,7 @@ function renderTerminal(d) {
     </div>
     <div class="t-line">
       <span class="t-prompt">❯</span>
-      <span class="t-cmd">alex --highlights</span>
+      <span class="t-cmd">${t('terminal.cmd.highlights')}</span>
     </div>
     <div class="t-out">${highlights}</div>
     <div class="t-line">
@@ -128,7 +138,7 @@ function renderExperience(d) {
         ${e.bullets.map(b => `<li>${b}</li>`).join('')}
       </ul>
       <a href="${e.url}" target="_blank" rel="noopener noreferrer" class="exp-link">
-        Visit company <span class="arrow">↗</span>
+        ${t('exp.visitCompany')} <span class="arrow">↗</span>
       </a>
     </div>`).join('');
 }
@@ -141,10 +151,10 @@ function renderEducation(d) {
         <div class="edu-degree">${e.degree}</div>
         <div class="edu-school">${e.school}</div>
         <a href="${e.url}" target="_blank" rel="noopener noreferrer" class="exp-link">
-          Visit university <span class="arrow">↗</span>
+          ${t('edu.visitUniversity')} <span class="arrow">↗</span>
         </a>
       </div>
-      <span class="edu-gpa">GPA · ${e.gpa}</span>
+      <span class="edu-gpa">${t('edu.gpa')} · ${e.gpa}</span>
     </div>`).join('');
 }
 
@@ -262,19 +272,25 @@ function initContactForm(email) {
     markInvalid(msgEl,   !message);
 
     if (!name || !emailOk || !message) {
-      setHint('Please fill in your name, a valid email, and a message.', 'error');
+      setHint(t('form.email.errInvalid'), 'error');
       return;
     }
 
-    const subject = `Opportunity / Inquiry from ${name}`;
+    const subject = t('form.email.subject', { name });
     const body = [
-      'Hi Alexander,', '', message, '', '—', `From: ${name}`, `Email: ${sender}`
+      t('form.email.bodyGreeting'),
+      '',
+      message,
+      '',
+      '—',
+      t('form.email.bodyFromLine',  { name }),
+      t('form.email.bodyEmailLine', { email: sender })
     ].join('\n');
 
     window.location.href =
       `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    showToast('Redirected to your email client');
+    showToast(t('form.email.toast'));
 
     setTimeout(() => {
       nameEl.value = '';
@@ -283,7 +299,7 @@ function initContactForm(email) {
       markInvalid(nameEl, false);
       markInvalid(emailEl, false);
       markInvalid(msgEl, false);
-      setHint('This will open your email client with the message pre-filled.');
+      setHint(t('form.email.hint'));
     }, 1200);
   });
 
@@ -319,22 +335,20 @@ function initWhatsAppForm(phone) {
   const phoneNum = phone.replace(/\D/g, '');
 
   function buildUrl() {
-    const lines = [
-      'Hi Alexander, I found your website and would like to discuss a job opportunity.'
-    ];
+    const lines = [t('form.wa.greeting')];
 
     const company  = companyEl.value.trim();
     const role     = roleEl.value.trim();
     const location = locationEl.value;
     const contact  = contactEl.value.trim();
 
-    if (company)  lines.push(`Company: ${company}`);
-    if (role)     lines.push(`Role: ${role}`);
-    if (location) lines.push(`Location: ${location}`);
-    if (contact)  lines.push(`Contact details: ${contact}`);
+    if (company)  lines.push(t('form.wa.line.company',  { value: company }));
+    if (role)     lines.push(t('form.wa.line.role',     { value: role }));
+    if (location) lines.push(t('form.wa.line.location', { value: location }));
+    if (contact)  lines.push(t('form.wa.line.contact',  { value: contact }));
 
-    lines.push('', 'Best regards,');
-    lines.push('[Your signature]');
+    lines.push('', t('form.wa.bestRegards'));
+    lines.push(t('form.wa.signature'));
 
     return `https://wa.me/${phoneNum}?text=${encodeURIComponent(lines.join('\n'))}`;
   }
@@ -345,18 +359,19 @@ function initWhatsAppForm(phone) {
   [companyEl, roleEl, locationEl, contactEl].forEach(el =>
     el.addEventListener('input', update)
   );
+
+  // Re-build the URL whenever language flips so a click on Open in WhatsApp
+  // sends the message in the active language.
+  window.addEventListener('langchange', update);
 }
 
 // ---------------------------------------------------------------------------
-// Bootstrap — cv-data.js must be loaded before this script (sets window.CV_DATA)
+// Bootstrap — lang.js must run first (it sets window.CV_DATA from the active pack)
 // ---------------------------------------------------------------------------
 
-(function () {
+function renderAll() {
   const data = window.CV_DATA;
-  if (!data) {
-    console.error('cv-loader: window.CV_DATA not found — make sure cv-data.js is loaded before cv-loader.js');
-    return;
-  }
+  if (!data) return;
 
   renderHero(data);
   renderTerminal(data);
@@ -367,7 +382,26 @@ function initWhatsAppForm(phone) {
   renderArchitecture(data);
   renderContact(data);
   renderFooter(data);
+}
+
+// Exposed so external triggers could re-render too; lang.js doesn't call this directly.
+window.applyI18n = renderAll;
+
+(function () {
+  const data = window.CV_DATA;
+  if (!data) {
+    console.error('cv-loader: window.CV_DATA not found — make sure lang.js is loaded before cv-loader.js');
+    return;
+  }
+
+  renderAll();
+
+  // Form bindings stay attached for the page lifetime; only their content
+  // (subject/body templates, hints, toast) reads t() at submit/build time.
   initContactForm(d64(data.personal._e));
   initWhatsAppForm(d64(data.personal._p));
   initFormTabs();
+
+  // Re-render dynamic CV sections when the user toggles language.
+  window.addEventListener('langchange', renderAll);
 })();

@@ -5,11 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self';">
 <meta name="robots" content="index, follow, noarchive">
+<meta name="i18n-title-key" content="page.title.index">
 <title>Alexander Tuskaev — Senior .NET Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="index.css">
 <script src="theme.js"></script>
+<script src="i18n/en.js"></script>
+<script src="i18n/ru.js"></script>
+<script src="lang.js"></script>
 <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
 <link rel="shortcut icon" href="favicons/favicon.ico" />
@@ -26,15 +30,18 @@
     Alexander<span>.</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#" data-i18n="nav.about">About</a></li>
+    <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+    <li><a href="#education" data-i18n="nav.education">Education</a></li>
+    <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+    <li><a href="#architecture" data-i18n="nav.architecture">Architecture</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
   </ul>
-  <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme"></button>
+  <div class="nav-actions">
+    <button id="lang-toggle" class="lang-toggle" aria-label="Switch language" title="Switch language"></button>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme"></button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -45,8 +52,8 @@
     <p class="hero-subtitle" id="hero-subtitle"></p>
     <p class="hero-desc" id="hero-desc"></p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Get in touch</a>
-      <a href="#experience" class="btn-ghost">View experience →</a>
+      <a href="#contact" class="btn-primary" data-i18n="hero.btn.getInTouch">Get in touch</a>
+      <a href="#experience" class="btn-ghost" data-i18n="hero.btn.viewExperience">View experience →</a>
     </div>
   </div>
 
@@ -70,7 +77,7 @@
 <section id="experience">
   <div class="section-header">
     <span class="section-num">01.</span>
-    <h2 class="section-title">Experience</h2>
+    <h2 class="section-title" data-i18n="section.experience">Experience</h2>
     <div class="section-line"></div>
     <span class="section-summary" id="experience-summary"></span>
   </div>
@@ -81,9 +88,9 @@
 <section id="education">
   <div class="section-header">
     <span class="section-num">02.</span>
-    <h2 class="section-title">Education</h2>
+    <h2 class="section-title" data-i18n="section.education">Education</h2>
     <div class="section-line"></div>
-    <span class="section-summary"><strong>BCS</strong> · Software Engineering</span>
+    <span class="section-summary" data-i18n-html="edu.summaryHtml"><strong>BCS</strong> · Software Engineering</span>
   </div>
   <div class="education-list" id="education-list"></div>
 </section>
@@ -92,7 +99,7 @@
 <section id="skills">
   <div class="section-header">
     <span class="section-num">03.</span>
-    <h2 class="section-title">Technical Skills</h2>
+    <h2 class="section-title" data-i18n="section.skills">Technical Skills</h2>
     <div class="section-line"></div>
   </div>
   <div class="skills-grid" id="skills-grid"></div>
@@ -102,7 +109,7 @@
 <section id="architecture">
   <div class="section-header">
     <span class="section-num">04.</span>
-    <h2 class="section-title">Architecture &amp; Design</h2>
+    <h2 class="section-title" data-i18n="section.architecture">Architecture &amp; Design</h2>
     <div class="section-line"></div>
   </div>
 
@@ -257,52 +264,52 @@
 
     <div class="contact-right">
       <div class="form-tabs">
-        <button class="form-tab form-tab--active" data-tab="email">Email</button>
-        <button class="form-tab" data-tab="whatsapp">WhatsApp</button>
+        <button class="form-tab form-tab--active" data-tab="email" data-i18n="form.tab.email">Email</button>
+        <button class="form-tab" data-tab="whatsapp" data-i18n="form.tab.whatsapp">WhatsApp</button>
       </div>
 
       <form class="form" id="contact-form" novalidate>
         <div class="form-group">
-          <label class="form-label" for="cf-name">Your name</label>
-          <input type="text" id="cf-name" class="form-input" placeholder="Jane Smith" required />
+          <label class="form-label" for="cf-name" data-i18n="form.email.name.label">Your name</label>
+          <input type="text" id="cf-name" class="form-input" placeholder="Jane Smith" data-i18n-placeholder="form.email.name.placeholder" required />
         </div>
         <div class="form-group">
-          <label class="form-label" for="cf-email">Email address</label>
-          <input type="email" id="cf-email" class="form-input" placeholder="jane@company.com" required />
+          <label class="form-label" for="cf-email" data-i18n="form.email.email.label">Email address</label>
+          <input type="email" id="cf-email" class="form-input" placeholder="jane@company.com" data-i18n-placeholder="form.email.email.placeholder" required />
         </div>
         <div class="form-group">
-          <label class="form-label" for="cf-message">Message</label>
-          <textarea id="cf-message" class="form-textarea" placeholder="Tell me about the role or project..." required></textarea>
+          <label class="form-label" for="cf-message" data-i18n="form.email.message.label">Message</label>
+          <textarea id="cf-message" class="form-textarea" placeholder="Tell me about the role or project..." data-i18n-placeholder="form.email.message.placeholder" required></textarea>
         </div>
-        <button type="submit" class="form-submit">Send message →</button>
-        <p class="form-hint" id="cf-hint">This will open your email client with the message pre-filled.</p>
+        <button type="submit" class="form-submit" data-i18n="form.email.submit">Send message →</button>
+        <p class="form-hint" id="cf-hint" data-i18n="form.email.hint">This will open your email client with the message pre-filled.</p>
       </form>
 
       <div class="form form--hidden" id="whatsapp-form">
-        <p class="form-hint form-hint--intro">All fields are optional — fill in what you know.</p>
+        <p class="form-hint form-hint--intro" data-i18n="form.wa.intro">All fields are optional — fill in what you know.</p>
         <div class="form-group">
-          <label class="form-label" for="wa-company">Company</label>
-          <input type="text" id="wa-company" class="form-input" placeholder="Acme Corp" />
+          <label class="form-label" for="wa-company" data-i18n="form.wa.company.label">Company</label>
+          <input type="text" id="wa-company" class="form-input" placeholder="Acme Corp" data-i18n-placeholder="form.wa.company.placeholder" />
         </div>
         <div class="form-group">
-          <label class="form-label" for="wa-role">Role</label>
-          <input type="text" id="wa-role" class="form-input" placeholder="Senior Backend Developer" />
+          <label class="form-label" for="wa-role" data-i18n="form.wa.role.label">Role</label>
+          <input type="text" id="wa-role" class="form-input" placeholder="Senior Backend Developer" data-i18n-placeholder="form.wa.role.placeholder" />
         </div>
         <div class="form-group">
-          <label class="form-label" for="wa-location">Location</label>
+          <label class="form-label" for="wa-location" data-i18n="form.wa.location.label">Location</label>
           <select id="wa-location" class="form-input form-select">
-            <option value="">— not specified —</option>
-            <option value="Remote">Remote</option>
-            <option value="On-site">On-site</option>
-            <option value="Hybrid">Hybrid</option>
+            <option value="" data-i18n="form.wa.location.notSpecified">— not specified —</option>
+            <option value="Remote" data-i18n="form.wa.location.remote">Remote</option>
+            <option value="On-site" data-i18n="form.wa.location.onsite">On-site</option>
+            <option value="Hybrid" data-i18n="form.wa.location.hybrid">Hybrid</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label" for="wa-contact">Your contact details</label>
-          <input type="text" id="wa-contact" class="form-input" placeholder="email or phone" />
+          <label class="form-label" for="wa-contact" data-i18n="form.wa.contact.label">Your contact details</label>
+          <input type="text" id="wa-contact" class="form-input" placeholder="email or phone" data-i18n-placeholder="form.wa.contact.placeholder" />
         </div>
-        <a class="form-submit form-submit--wa" id="wa-send" href="#" target="_blank" rel="noopener noreferrer">Open in WhatsApp →</a>
-        <p class="form-hint">Opens WhatsApp with a pre-filled message.</p>
+        <a class="form-submit form-submit--wa" id="wa-send" href="#" target="_blank" rel="noopener noreferrer" data-i18n="form.wa.submit">Open in WhatsApp →</a>
+        <p class="form-hint" data-i18n="form.wa.hint">Opens WhatsApp with a pre-filled message.</p>
       </div>
     </div>
   </div>
@@ -311,10 +318,9 @@
 <!-- FOOTER -->
 <footer>
   <p id="footer-copy"></p>
-  <a href="#">Back to top ↑</a>
+  <a href="#" data-i18n="footer.backToTop">Back to top ↑</a>
 </footer>
 
-<script src="cv-data.js"></script>
 <script src="cv-loader.js"></script>
 
 </body>

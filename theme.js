@@ -37,11 +37,19 @@
         return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
     }
 
+    function tooltipFor(theme) {
+        var key = theme === 'dark' ? 'theme.toLight' : 'theme.toDark';
+        // window.t may not exist yet if lang.js hasn't run; fall back to English defaults.
+        if (typeof window.t === 'function') return window.t(key);
+        return theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+    }
+
     function updateButton(btn, theme) {
         if (!btn) return;
         btn.innerHTML = theme === 'dark' ? sunSVG() : moonSVG();
-        btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-        btn.setAttribute('title',      theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        var label = tooltipFor(theme);
+        btn.setAttribute('aria-label', label);
+        btn.setAttribute('title',      label);
     }
 
     /* ── Apply immediately (before body paints — no flash) ── */
@@ -61,6 +69,11 @@
                 updateButton(btn, next);
             });
         }
+
+        /* Refresh tooltip when language changes */
+        window.addEventListener('langchange', function () {
+            updateButton(document.getElementById('theme-toggle'), current());
+        });
 
         /* Follow OS changes only when the user hasn't made a manual choice */
         if (window.matchMedia) {

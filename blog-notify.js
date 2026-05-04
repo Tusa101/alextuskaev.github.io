@@ -4,7 +4,10 @@
   const emailEl = document.getElementById('notify-email');
   const hint = document.getElementById('notify-hint');
   const RECIPIENT = atob('YW10dXNrYUBnbWFpbC5jb20=');
-  const DEFAULT_HINT = "I'll email you once · no spam, ever.";
+
+  function tr(key, vars) {
+    return typeof window.t === 'function' ? window.t(key, vars) : '[' + key + ']';
+  }
 
   const setHint = (text, type) => {
     hint.textContent = text;
@@ -36,18 +39,18 @@
     const email = emailEl.value.trim();
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!ok) {
-      setHint('Please enter a valid email address.', 'error');
+      setHint(tr('blog.notify.errInvalid'), 'error');
       return;
     }
 
-    const subject = 'Blog launch — please notify me';
+    const subject = tr('blog.notify.subject');
     const body = [
-      'Hi Alexander,',
+      tr('blog.notify.bodyGreeting'),
       '',
-      "Please add me to the list — I'd like to be notified when your blog goes live.",
+      tr('blog.notify.bodyAsk'),
       '',
       '—',
-      'Email: ' + email
+      tr('blog.notify.bodyEmail', { email })
     ].join('\n');
 
     window.location.href =
@@ -55,17 +58,17 @@
       '?subject=' + encodeURIComponent(subject) +
       '&body=' + encodeURIComponent(body);
 
-    showToast('Redirected to your email client');
+    showToast(tr('blog.notify.toast'));
 
     setTimeout(() => {
       emailEl.value = '';
-      setHint(DEFAULT_HINT);
+      setHint(tr('blog.notify.hint'));
     }, 1200);
   });
 
   emailEl.addEventListener('input', () => {
     if (hint.classList.contains('error')) {
-      setHint(DEFAULT_HINT);
+      setHint(tr('blog.notify.hint'));
     }
   });
 })();

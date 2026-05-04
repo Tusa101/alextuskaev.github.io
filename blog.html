@@ -5,11 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self';">
 <meta name="robots" content="index, follow, noarchive">
+<meta name="i18n-title-key" content="page.title.blog">
 <title>Blog — Alexander Tuskaev · Coming soon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="blog.css">
 <script src="theme.js"></script>
+<script src="i18n/en.js"></script>
+<script src="i18n/ru.js"></script>
+<script src="lang.js"></script>
 <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
 <link rel="shortcut icon" href="favicons/favicon.ico" />
@@ -22,40 +26,43 @@
 <!-- NAV -->
 <nav>
   <div class="nav-left">
-    <a href="index.html" class="nav-back" title="Back to portfolio" aria-label="Back to portfolio">←</a>
+    <a href="index.html" class="nav-back" title="Back to portfolio" aria-label="Back to portfolio" data-i18n-title="nav.backToPortfolio" data-i18n-aria-label="nav.backToPortfolio">←</a>
     <a href="index.html" class="nav-logo">
       <img src="favicons/favicon.svg" alt="" class="nav-logo-img" />
       Alexander<span>.</span>
     </a>
   </div>
   <ul class="nav-links">
-    <li><a href="index.html#">About</a></li>
-    <li><a href="index.html#experience">Experience</a></li>
-    <li><a href="index.html#education">Education</a></li>
-    <li><a href="index.html#skills">Skills</a></li>
-    <li><a href="index.html#architecture">Architecture</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="index.html#" data-i18n="nav.about">About</a></li>
+    <li><a href="index.html#experience" data-i18n="nav.experience">Experience</a></li>
+    <li><a href="index.html#education" data-i18n="nav.education">Education</a></li>
+    <li><a href="index.html#skills" data-i18n="nav.skills">Skills</a></li>
+    <li><a href="index.html#architecture" data-i18n="nav.architecture">Architecture</a></li>
+    <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+    <li><a href="blog.html" class="active" data-i18n="nav.blog">Blog</a></li>
   </ul>
-  <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme"></button>
+  <div class="nav-actions">
+    <button id="lang-toggle" class="lang-toggle" aria-label="Switch language" title="Switch language"></button>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme"></button>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="blog-hero">
   <div class="blog-inner">
-    <div class="wip-tag">Work in progress · v0.1.0</div>
+    <div class="wip-tag" data-i18n="blog.wip">Work in progress · v0.1.0</div>
 
-    <h1>The <em>Blog</em>.</h1>
-    <p class="blog-subtitle">Notes from the backend trenches — coming soon.</p>
+    <h1 data-i18n-html="blog.headingHtml">The <em>Blog</em>.</h1>
+    <p class="blog-subtitle" data-i18n="blog.subtitle">Notes from the backend trenches — coming soon.</p>
 
     <div class="blog-desc">
-      <p>
+      <p data-i18n-html="blog.desc.p1Html">
         This is where I'll be sharing the <span class="highlight">interesting bits of the tech world</span> — the patterns, papers, postmortems, and quiet little engineering insights that make distributed systems click.
       </p>
-      <p>
+      <p data-i18n-html="blog.desc.p2Html">
         Expect deep dives into <span class="highlight">.NET internals</span>, distributed-systems patterns (sagas, outbox, event sourcing), <span class="highlight">architecture write-ups</span> with C4 / UML / sequence diagrams, hands-on tutorials, and the occasional war story from the production trenches.
       </p>
-      <p>
+      <p data-i18n-html="blog.desc.p3Html">
         It's a place for educational materials, know-how, and whatever new thing I'm currently nerding out about — written for engineers who like understanding <em>why</em> things work, not just <em>that</em> they do.
       </p>
     </div>
@@ -87,21 +94,21 @@
       <div class="build-body">
         <div class="b-line">
           <span class="b-prompt">❯</span>
-          <span class="b-cmd">blog --status</span>
+          <span class="b-cmd" data-i18n="blog.terminal.cmd.status">blog --status</span>
         </div>
         <div class="b-out">
-          <span class="b-key">stage</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-warn">drafting first posts</span><br>
-          <span class="b-key">stack</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-val">Next.js · MDX · Vercel</span><br>
-          <span class="b-key">posts</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-val">3 in queue</span><br>
-          <span class="b-key">launch</span>:&nbsp;&nbsp;&nbsp;<span class="b-val">soon™</span>
+          <span class="b-key" data-i18n="blog.terminal.key.stage">stage</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-warn" data-i18n="blog.terminal.value.stage">drafting first posts</span><br>
+          <span class="b-key" data-i18n="blog.terminal.key.stack">stack</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-val" data-i18n="blog.terminal.value.stack">Next.js · MDX · Vercel</span><br>
+          <span class="b-key" data-i18n="blog.terminal.key.posts">posts</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-val" data-i18n="blog.terminal.value.posts">3 in queue</span><br>
+          <span class="b-key" data-i18n="blog.terminal.key.launch">launch</span>:&nbsp;&nbsp;&nbsp;<span class="b-val" data-i18n="blog.terminal.value.launch">soon™</span>
         </div>
 
         <div class="b-line">
           <span class="b-prompt">❯</span>
-          <span class="b-cmd">blog --progress</span>
+          <span class="b-cmd" data-i18n="blog.terminal.cmd.progress">blog --progress</span>
         </div>
         <div class="progress-wrap">
-          building&hellip;
+          <span data-i18n="blog.terminal.progress">building…</span>
           <div class="progress-bar"><div class="progress-fill"></div></div>
         </div>
 
@@ -114,22 +121,22 @@
 
     <!-- Notify -->
     <div class="notify">
-      <div class="notify-text">Want a ping when the first post drops?</div>
+      <div class="notify-text" data-i18n="blog.notify.text">Want a ping when the first post drops?</div>
       <form class="notify-form" id="notify-form" novalidate>
-        <input type="email" id="notify-email" class="notify-input" placeholder="your@email.com" required />
-        <button type="submit" class="notify-btn">Notify me →</button>
+        <input type="email" id="notify-email" class="notify-input" placeholder="your@email.com" data-i18n-placeholder="blog.notify.placeholder" required />
+        <button type="submit" class="notify-btn" data-i18n="blog.notify.btn">Notify me →</button>
       </form>
-      <div class="notify-hint" id="notify-hint">I'll email you once · no spam, ever.</div>
+      <div class="notify-hint" id="notify-hint" data-i18n="blog.notify.hint">I'll email you once · no spam, ever.</div>
     </div>
 
-    <a href="index.html" class="back-link">← Back to portfolio</a>
+    <a href="index.html" class="back-link" data-i18n="blog.backLink">← Back to portfolio</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Alexander Tuskaev · Blog under construction.</p>
-  <a href="index.html">← Portfolio</a>
+  <p><span id="blog-footer-year">© 2026 Alexander Tuskaev</span><span data-i18n="footer.blogTagline"> · Blog under construction.</span></p>
+  <a href="index.html" data-i18n="footer.portfolioLink">← Portfolio</a>
 </footer>
 
 <script src="blog-notify.js"></script>
