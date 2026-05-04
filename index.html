@@ -18,7 +18,10 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Alexander<span>.</span></a>
+  <a href="#" class="nav-logo">
+    <img src="favicons/favicon.svg" alt="" class="nav-logo-img" />
+    Alexander<span>.</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#experience">Experience</a></li>
     <li><a href="#education">Education</a></li>
@@ -248,6 +251,11 @@
     </div>
 
     <div class="contact-right">
+      <div class="form-tabs">
+        <button class="form-tab form-tab--active" data-tab="email">Email</button>
+        <button class="form-tab" data-tab="whatsapp">WhatsApp</button>
+      </div>
+
       <form class="form" id="contact-form" novalidate>
         <div class="form-group">
           <label class="form-label" for="cf-name">Your name</label>
@@ -264,6 +272,33 @@
         <button type="submit" class="form-submit">Send message →</button>
         <p class="form-hint" id="cf-hint">This will open your email client with the message pre-filled.</p>
       </form>
+
+      <div class="form" id="whatsapp-form" style="display:none">
+        <p class="form-hint" style="margin-bottom:4px">All fields are optional — fill in what you know.</p>
+        <div class="form-group">
+          <label class="form-label" for="wa-company">Company</label>
+          <input type="text" id="wa-company" class="form-input" placeholder="Acme Corp" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="wa-role">Role</label>
+          <input type="text" id="wa-role" class="form-input" placeholder="Senior Backend Developer" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="wa-location">Location</label>
+          <select id="wa-location" class="form-input form-select">
+            <option value="">— not specified —</option>
+            <option value="Remote">Remote</option>
+            <option value="On-site">On-site</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="wa-contact">Your contact details</label>
+          <input type="text" id="wa-contact" class="form-input" placeholder="email or phone" />
+        </div>
+        <a class="form-submit form-submit--wa" id="wa-send" href="#" target="_blank" rel="noopener noreferrer">Open in WhatsApp →</a>
+        <p class="form-hint">Opens WhatsApp with a pre-filled message.</p>
+      </div>
     </div>
   </div>
 </section>
