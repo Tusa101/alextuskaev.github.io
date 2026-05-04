@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog — Alexander Tuskaev · Coming soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0c0f;
+    --bg2: #111318;
+    --bg3: #181b22;
+    --line: #1f2330;
+    --accent: #4af0a0;
+    --accent2: #3dd6f5;
+    --accent3: #f5a623;
+    --text: #e8eaf0;
+    --muted: #6b7185;
+    --muted2: #9099b5;
+    --card: #13151c;
+    --border: #1e2235;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(11,12,15,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a.active { color: var(--accent); }
+
+  /* Back button next to logo */
+  .nav-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--muted2);
+    text-decoration: none;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .nav-back:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(74,240,160,0.06);
+    transform: translateX(-2px);
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* ── HERO ── */
+  .blog-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background grid */
+  .blog-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+    opacity: 0.5;
+  }
+
+  .blog-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .wip-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,166,35,0.08);
+    border: 1px solid rgba(245,166,35,0.25);
+    color: var(--accent3);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  .wip-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .blog-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .blog-hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .blog-subtitle {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 1.8vw, 22px);
+    font-weight: 300;
+    color: var(--muted2);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+
+  .blog-desc {
+    color: var(--muted2);
+    font-size: 14px;
+    line-height: 1.85;
+    max-width: 620px;
+    margin: 0 auto 48px;
+    text-align: left;
+  }
+
+  .blog-desc p { margin-bottom: 18px; }
+  .blog-desc p:last-child { margin-bottom: 0; }
+
+  .blog-desc .highlight { color: var(--accent2); }
+
+  /* Topic chips */
+  .blog-topics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 56px;
+  }
+
+  .topic-chip {
+    font-size: 11px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    transition: all 0.2s;
+    cursor: default;
+    border-radius: 2px;
+  }
+
+  .topic-chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(74,240,160,0.05);
+  }
+
+  .topic-chip.primary {
+    border-color: rgba(74,240,160,0.3);
+    color: var(--accent);
+    background: rgba(74,240,160,0.06);
+  }
+
+  /* Construction terminal card */
+  .build-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    max-width: 560px;
+    margin: 0 auto 48px;
+    text-align: left;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(74,240,160,0.05);
+  }
+
+  .build-bar {
+    background: var(--bg3);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .build-title {
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .build-body { padding: 22px; font-size: 12px; }
+
+  .b-line { display: flex; gap: 8px; margin-bottom: 6px; }
+  .b-prompt { color: var(--accent); user-select: none; }
+  .b-cmd { color: var(--text); }
+  .b-out { color: var(--muted2); padding-left: 16px; margin-bottom: 12px; }
+  .b-key { color: var(--accent2); }
+  .b-val { color: var(--text); }
+  .b-warn { color: var(--accent3); }
+
+  /* Progress bar */
+  .progress-wrap {
+    padding-left: 16px;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    margin-top: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 22%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { width: 22%; }
+    50% { width: 28%; }
+  }
+
+  .b-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--accent);
+    vertical-align: middle;
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* Notify CTA */
+  .notify {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .notify-text {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .notify-form {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    max-width: 460px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    transition: border-color 0.2s;
+  }
+  .notify-form:focus-within { border-color: var(--accent); }
+
+  .notify-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 12px 14px;
+    outline: none;
+  }
+  .notify-input::placeholder { color: var(--muted); }
+
+  .notify-btn {
+    background: var(--accent);
+    color: #0b0c0f;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0 22px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .notify-btn:hover { background: #6affb8; }
+
+  .notify-hint {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    min-height: 14px;
+  }
+  .notify-hint.error { color: #ff7a7a; }
+  .notify-hint.success { color: var(--accent); }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 56px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .back-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 24px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  footer p {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .wip-tag { animation: fadeUp 0.6s ease both; }
+  .blog-hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
+  .blog-subtitle { animation: fadeUp 0.6s 0.2s ease both; }
+  .blog-desc { animation: fadeUp 0.6s 0.3s ease both; }
+  .blog-topics { animation: fadeUp 0.6s 0.4s ease both; }
+  .build-card { animation: fadeUp 0.7s 0.5s ease both; }
+  .notify { animation: fadeUp 0.7s 0.6s ease both; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  @media (max-width: 900px) {
+    nav {
+      padding: 14px 16px;
+      gap: 12px;
+    }
+    .nav-logo { font-size: 16px; flex-shrink: 0; }
+    .nav-links {
+      gap: 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.08em; }
+
+    .blog-hero {
+      padding: 100px 20px 60px;
+    }
+    .blog-hero::before {
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 100% 70% at 50% 40%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 40%, black 40%, transparent 100%);
+      opacity: 0.45;
+    }
+
+    .build-card { max-width: 100%; }
+    .notify-form { flex-direction: column; }
+    .notify-btn { padding: 12px 22px; }
+
+    footer {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 12px 14px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 10px; }
+    .blog-hero { padding: 88px 16px 48px; }
+    .blog-hero h1 { font-size: 44px; }
+    .build-body { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="nav-back" title="Back to portfolio" aria-label="Back to portfolio">←</a>
+    <a href="index.html" class="nav-logo">Alexander<span>.</span></a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#architecture">Architecture</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="blog-hero">
+  <div class="blog-inner">
+    <div class="wip-tag">Work in progress · v0.1.0</div>
+
+    <h1>The <em>Blog</em>.</h1>
+    <p class="blog-subtitle">Notes from the backend trenches — coming soon.</p>
+
+    <div class="blog-desc">
+      <p>
+        This is where I'll be sharing the <span class="highlight">interesting bits of the tech world</span> — the patterns, papers, postmortems, and quiet little engineering insights that make distributed systems click.
+      </p>
+      <p>
+        Expect deep dives into <span class="highlight">.NET internals</span>, distributed-systems patterns (sagas, outbox, event sourcing), <span class="highlight">architecture write-ups</span> with C4 / UML / sequence diagrams, hands-on tutorials, and the occasional war story from the production trenches.
+      </p>
+      <p>
+        It's a place for educational materials, know-how, and whatever new thing I'm currently nerding out about — written for engineers who like understanding <em>why</em> things work, not just <em>that</em> they do.
+      </p>
+    </div>
+
+    <!-- Topics preview -->
+    <div class="blog-topics">
+      <span class="topic-chip primary">.NET / C#</span>
+      <span class="topic-chip primary">Distributed Systems</span>
+      <span class="topic-chip primary">Architecture</span>
+      <span class="topic-chip">Microservices</span>
+      <span class="topic-chip">Event-driven</span>
+      <span class="topic-chip">DDD</span>
+      <span class="topic-chip">Sagas</span>
+      <span class="topic-chip">PostgreSQL</span>
+      <span class="topic-chip">Azure</span>
+      <span class="topic-chip">AI Agents / MCP</span>
+      <span class="topic-chip">Diagrams &amp; Modeling</span>
+      <span class="topic-chip">Postmortems</span>
+    </div>
+
+    <!-- Status terminal -->
+    <div class="build-card">
+      <div class="build-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="build-title">blog@tuskaev ~ build</span>
+      </div>
+      <div class="build-body">
+        <div class="b-line">
+          <span class="b-prompt">❯</span>
+          <span class="b-cmd">blog --status</span>
+        </div>
+        <div class="b-out">
+          <span class="b-key">stage</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-warn">drafting first posts</span><br>
+          <span class="b-key">stack</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-val">Next.js · MDX · Vercel</span><br>
+          <span class="b-key">posts</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="b-val">3 in queue</span><br>
+          <span class="b-key">launch</span>:&nbsp;&nbsp;&nbsp;<span class="b-val">soon™</span>
+        </div>
+
+        <div class="b-line">
+          <span class="b-prompt">❯</span>
+          <span class="b-cmd">blog --progress</span>
+        </div>
+        <div class="progress-wrap">
+          building&hellip;
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+
+        <div class="b-line">
+          <span class="b-prompt">❯</span>
+          <span class="b-cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notify -->
+    <div class="notify">
+      <div class="notify-text">Want a ping when the first post drops?</div>
+      <form class="notify-form" id="notify-form" novalidate>
+        <input type="email" id="notify-email" class="notify-input" placeholder="your@email.com" required />
+        <button type="submit" class="notify-btn">Notify me →</button>
+      </form>
+      <div class="notify-hint" id="notify-hint">I'll email you once · no spam, ever.</div>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to portfolio</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Alexander Tuskaev · Blog under construction.</p>
+  <a href="index.html">← Portfolio</a>
+</footer>
+
+<script>
+  (function () {
+    const form = document.getElementById('notify-form');
+    if (!form) return;
+    const emailEl = document.getElementById('notify-email');
+    const hint = document.getElementById('notify-hint');
+    const RECIPIENT = 'amtuska@gmail.com';
+
+    const setHint = (text, type) => {
+      hint.textContent = text;
+      hint.classList.remove('error', 'success');
+      if (type) hint.classList.add(type);
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = emailEl.value.trim();
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!ok) {
+        setHint('Please enter a valid email address.', 'error');
+        return;
+      }
+
+      const subject = 'Blog launch — please notify me';
+      const body = [
+        'Hi Alexander,',
+        '',
+        'Please add me to the list — I\'d like to be notified when your blog goes live.',
+        '',
+        '—',
+        'Email: ' + email
+      ].join('\n');
+
+      const mailto =
+        'mailto:' + RECIPIENT +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+
+      window.location.href = mailto;
+      setHint('Opening your email client… thanks for your interest!', 'success');
+    });
+
+    emailEl.addEventListener('input', () => {
+      if (hint.classList.contains('error')) {
+        setHint("I'll email you once · no spam, ever.");
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alexander Tuskaev — Senior .NET Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0c0f;
+    --bg2: #111318;
+    --bg3: #181b22;
+    --line: #1f2330;
+    --accent: #4af0a0;
+    --accent2: #3dd6f5;
+    --accent3: #f5a623;
+    --text: #e8eaf0;
+    --muted: #6b7185;
+    --muted2: #9099b5;
+    --card: #13151c;
+    --border: #1e2235;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(11,12,15,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 48px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background grid */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 80% at 70% 50%, black 30%, transparent 100%);
+    opacity: 0.5;
+  }
+
+  .hero-left { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(74,240,160,0.08);
+    border: 1px solid rgba(74,240,160,0.2);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(16px, 1.8vw, 22px);
+    font-weight: 300;
+    color: var(--muted2);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .hero-desc {
+    color: var(--muted2);
+    font-size: 13px;
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0b0c0f;
+    padding: 12px 28px;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: #6affb8;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    color: var(--muted2);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+
+  /* Terminal card */
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .terminal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 460px;
+    font-size: 12px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(74,240,160,0.05);
+  }
+
+  .terminal-bar {
+    background: var(--bg3);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .terminal-title {
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .terminal-body { padding: 20px; }
+
+  .t-line { display: flex; gap: 8px; margin-bottom: 6px; }
+  .t-prompt { color: var(--accent); user-select: none; }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--muted2); padding-left: 16px; margin-bottom: 12px; }
+  .t-key { color: var(--accent2); }
+  .t-val { color: var(--text); }
+  .t-tag {
+    display: inline-block;
+    background: rgba(74,240,160,0.1);
+    border: 1px solid rgba(74,240,160,0.2);
+    color: var(--accent);
+    font-size: 10px;
+    padding: 2px 8px;
+    margin: 2px 3px 2px 0;
+    border-radius: 2px;
+  }
+  .t-tag2 {
+    display: inline-block;
+    background: rgba(61,214,245,0.1);
+    border: 1px solid rgba(61,214,245,0.2);
+    color: var(--accent2);
+    font-size: 10px;
+    padding: 2px 8px;
+    margin: 2px 3px 2px 0;
+    border-radius: 2px;
+  }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--accent);
+    vertical-align: middle;
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── METRICS ── */
+  .metrics {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .metric {
+    padding: 0 32px;
+    border-right: 1px solid var(--border);
+  }
+  .metric:first-child { padding-left: 0; }
+  .metric:last-child { border-right: none; }
+
+  .metric-num {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-num span { color: var(--accent); font-style: italic; }
+
+  .metric-label {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── EXPERIENCE ── */
+  section { padding: 80px 48px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .section-num {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(74,240,160,0.08);
+    border: 1px solid rgba(74,240,160,0.2);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .section-summary strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  @media (max-width: 900px) {
+    .section-summary {
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+    }
+  }
+
+  /* Timeline */
+  .timeline { position: relative; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--border));
+  }
+
+  .exp-item {
+    padding: 0 0 48px 36px;
+    position: relative;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 8px;
+    width: 9px; height: 9px;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+  }
+
+  .exp-item:first-child::before { background: var(--accent); }
+
+  .exp-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .exp-company {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .exp-period {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+
+  .exp-role {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .exp-industry {
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 14px;
+  }
+
+  .exp-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .exp-points li {
+    color: var(--muted2);
+    font-size: 12.5px;
+    line-height: 1.65;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-points li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  .exp-highlight {
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  .exp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    background: rgba(74,240,160,0.04);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 2px;
+  }
+
+  .exp-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(74,240,160,0.1);
+    transform: translateY(-1px);
+  }
+
+  .exp-link .arrow {
+    transition: transform 0.2s ease;
+    font-size: 13px;
+  }
+
+  .exp-link:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+
+  /* ── EDUCATION ── */
+  .education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 24px;
+    align-items: baseline;
+    padding: 22px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    transition: all 0.2s ease;
+  }
+
+  .edu-item:hover {
+    border-color: var(--border);
+    border-left-color: var(--accent);
+    background: var(--bg3);
+    transform: translateX(2px);
+  }
+
+  .edu-period {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .edu-main { display: flex; flex-direction: column; gap: 6px; }
+
+  .edu-degree {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .edu-school {
+    color: var(--muted2);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .edu-gpa {
+    color: var(--accent2);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid rgba(61,214,245,0.3);
+    background: rgba(61,214,245,0.05);
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .edu-item {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .edu-period { order: -1; }
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .skill-group {
+    background: var(--card);
+    padding: 28px;
+  }
+
+  .skill-group-title {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .skill-tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(74,240,160,0.05);
+  }
+
+  .skill-tag.primary {
+    border-color: rgba(74,240,160,0.3);
+    color: var(--accent);
+    background: rgba(74,240,160,0.06);
+  }
+
+  .skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .skill-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+  .skill-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: currentColor;
+  }
+
+  /* ── ARCHITECTURE ── */
+  .arch-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .arch-text h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .arch-text h3 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .arch-text p {
+    color: var(--muted2);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+  }
+  .arch-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .arch-tags .skill-tag.primary {
+    cursor: default;
+  }
+
+  .arch-diagram {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .arch-diagram-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+  .arch-diagram-title {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .arch-diagram-meta {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  .arch-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .arch-svg .node-box {
+    fill: var(--bg3);
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+  .arch-svg .node-box.primary { stroke: var(--accent); }
+  .arch-svg .node-box.secondary { stroke: var(--accent2); }
+  .arch-svg .node-label {
+    fill: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+  }
+  .arch-svg .node-sub {
+    fill: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.05em;
+  }
+  .arch-svg .edge {
+    stroke: var(--border);
+    stroke-width: 1;
+    fill: none;
+  }
+  .arch-svg .edge.dashed {
+    stroke-dasharray: 3 3;
+    stroke: var(--accent2);
+    opacity: 0.6;
+  }
+  .arch-svg .edge.solid {
+    stroke: var(--accent);
+    opacity: 0.8;
+  }
+  .arch-svg .edge-label {
+    fill: var(--muted2);
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+  }
+  .arch-svg .pulse-dot {
+    fill: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @media (max-width: 900px) {
+    .arch-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-left h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .contact-left h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-left p {
+    color: var(--muted2);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted2);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+  .contact-link-icon { color: var(--accent); font-size: 14px; }
+
+  /* Form */
+  .form { display: flex; flex-direction: column; gap: 16px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+  .form-label {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .form-input, .form-textarea {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    background: var(--accent);
+    color: #0b0c0f;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all 0.2s;
+  }
+
+  .form-submit:hover {
+    background: #6affb8;
+    transform: translateY(-1px);
+  }
+
+  .form-hint {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+  .form-hint.error { color: #ff7a7a; }
+  .form-hint.success { color: var(--accent); }
+  .form-input.invalid, .form-textarea.invalid {
+    border-color: #ff7a7a;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 24px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag { animation: fadeUp 0.6s ease both; }
+  .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-subtitle { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-desc { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-actions { animation: fadeUp 0.6s 0.4s ease both; }
+  .terminal { animation: fadeUp 0.8s 0.3s ease both; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  @media (max-width: 900px) {
+    nav {
+      padding: 14px 16px;
+      gap: 12px;
+    }
+    .nav-logo { font-size: 16px; flex-shrink: 0; }
+    .nav-links {
+      gap: 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.08em; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 96px 20px 48px;
+    }
+    /* Make the background grid cover the whole hero on mobile (no clipping mask) */
+    .hero::before {
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 100% 70% at 50% 40%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 40%, black 40%, transparent 100%);
+      opacity: 0.45;
+    }
+    .hero-right { justify-content: center; margin-top: 40px; }
+    .terminal { max-width: 100%; }
+
+    .metrics {
+      grid-template-columns: repeat(2,1fr);
+      padding: 20px;
+      gap: 0;
+    }
+    .metric {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .metric:nth-child(odd) { padding-right: 16px; border-right: 1px solid var(--border); }
+    .metric:nth-child(even) { padding-left: 16px; }
+    .metric:nth-last-child(-n+2) { border-bottom: none; }
+
+    section { padding: 56px 20px; }
+
+    /* Section header should wrap so the summary pill never hangs */
+    .section-header {
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-bottom: 32px;
+    }
+    .section-line { display: none; }
+    .section-summary {
+      width: 100%;
+      justify-content: flex-start;
+      margin-top: 4px;
+      white-space: normal;
+    }
+
+    .skills-grid { grid-template-columns: 1fr; }
+
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 12px 14px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 10px; }
+    .hero { padding: 88px 16px 40px; }
+    .hero h1 { font-size: 44px; }
+    section { padding: 48px 16px; }
+    .arch-diagram { padding: 18px 14px; }
+    .form-input, .form-textarea { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Alexander<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Available for opportunities · Central District, Israel</div>
+    <h1>Alexander<br><em>Tuskaev</em></h1>
+    <p class="hero-subtitle">Senior .NET Developer · System / Solution Architect · Team Lead</p>
+    <p class="hero-desc">
+      Backend engineer with 5+ years shaping distributed systems — from splitting legacy monoliths into domain-driven microservices to architecting event-driven AI integrations. I write code that scales, systems that survive, and pipelines that just ship — and I love sketching architectures with C4, UML, and sequence diagrams before a single line of code is written. I've also led teams: mentoring engineers, running technical interviews, and owning delivery end-to-end.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get in touch</a>
+      <a href="#experience" class="btn-ghost">View experience →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">alex@tuskaev ~ zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line">
+          <span class="t-prompt">❯</span>
+          <span class="t-cmd">alex --profile</span>
+        </div>
+        <div class="t-out">
+          <span class="t-key">name</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">Alexander Tuskaev</span><br>
+          <span class="t-key">role</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">Senior .NET Developer</span><br>
+          <span class="t-key">experience</span>:&nbsp;<span class="t-val">5+ years</span><br>
+          <span class="t-key">location</span>:&nbsp;&nbsp;&nbsp;<span class="t-val">Israel 🇮🇱</span><br>
+          <span class="t-key">languages</span>:&nbsp;&nbsp;<span class="t-val">EN · RU · HE</span><br>
+          <span class="t-key">open_to</span>:&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">["System Architect", "Solution Architect", "Team Lead"]</span>
+        </div>
+
+        <div class="t-line">
+          <span class="t-prompt">❯</span>
+          <span class="t-cmd">alex --stack</span>
+        </div>
+        <div class="t-out">
+          <span class="t-tag">C#</span><span class="t-tag">ASP.NET</span><span class="t-tag">.NET Core</span><span class="t-tag">EF Core</span><br>
+          <span class="t-tag2">Azure</span><span class="t-tag2">AWS</span><span class="t-tag2">Docker</span><span class="t-tag2">K8s</span><br>
+          <span class="t-tag2">RabbitMQ</span><span class="t-tag2">Service Bus</span><br>
+          <span class="t-tag">PostgreSQL</span><span class="t-tag">Redis</span><span class="t-tag">RavenDB</span>
+        </div>
+
+        <div class="t-line">
+          <span class="t-prompt">❯</span>
+          <span class="t-cmd">alex --highlights</span>
+        </div>
+        <div class="t-out">
+          <span class="t-key">delivery</span>:&nbsp;&nbsp;<span class="t-val">CI/CD −30% build time</span><br>
+          <span class="t-key">perf</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">Critical paths +15% speed</span><br>
+          <span class="t-key">dx</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">NuGet pkgs → dev −30% time</span>
+        </div>
+
+        <div class="t-line">
+          <span class="t-prompt">❯</span>
+          <span class="t-cursor"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div class="metrics">
+  <div class="metric">
+    <div class="metric-num">5<span>+</span></div>
+    <div class="metric-label">Years of experience</div>
+  </div>
+  <div class="metric">
+    <div class="metric-num">4</div>
+    <div class="metric-label">Companies</div>
+  </div>
+  <div class="metric">
+    <div class="metric-num">15<span>+</span></div>
+    <div class="metric-label">Devs led across teams</div>
+  </div>
+  <div class="metric">
+    <div class="metric-num">88</div>
+    <div class="metric-label">GPA · BCS Degree</div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">01.</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+    <span class="section-summary"><strong>5 yrs combined</strong> · since Jun 2021</span>
+  </div>
+
+  <div class="timeline">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-company">movement-group</span>
+        <span class="exp-period">Feb 2025 – Present · 1 yr 2 mo</span>
+      </div>
+      <div class="exp-role">Senior .NET Developer</div>
+      <div class="exp-industry">Wellness · Health · On-site, Lod, Israel</div>
+      <ul class="exp-points">
+        <li>Decomposed main monolith into <span class="exp-highlight">DDD-based microservices</span> to support internationalization and handle RPS growth.</li>
+        <li>Developed NuGet packages (RavenDB, Postgres config) stored in Azure Feed — <span class="exp-highlight">accelerated new project bootstrap by 30%</span>.</li>
+        <li>Designed Azure App Service microservices connected to <span class="exp-highlight">AI Agents via MCP</span>; architected SAGA-based distributed and async messaging via Service Bus.</li>
+        <li>Led development of the event-driven system core; improved onboarding and interviewing flows.</li>
+      </ul>
+      <a href="https://movement-group.com/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-company">APPFOX</span>
+        <span class="exp-period">Feb 2024 – Feb 2025 · 1 yr</span>
+      </div>
+      <div class="exp-role">Senior .NET Developer</div>
+      <div class="exp-industry">Outsource · SaaS · Gamedev · EdTech · Remote, Russia</div>
+      <ul class="exp-points">
+        <li>Designed multithreaded ASP.NET microservices connected via RabbitMQ; administered PostgreSQL and wrote <span class="exp-highlight">10+ stored procedures</span> in SQL/PL-SQL.</li>
+        <li>Acted as DevOps: configured GitHub Actions, Docker, TeamCity pipelines — <span class="exp-highlight">reduced build & delivery by 30%</span>.</li>
+        <li>Critical path optimization improved loaded services speed <span class="exp-highlight">by up to 15%</span>.</li>
+        <li>Mentored new hires and conducted technical interviews.</li>
+      </ul>
+      <a href="https://appfox.ru/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-company">Dacha Industries</span>
+        <span class="exp-period">Dec 2021 – Sep 2024 · 2 yr 10 mo</span>
+      </div>
+      <div class="exp-role">.NET Developer</div>
+      <div class="exp-industry">Startup · Stock Market Simulator · Hybrid, Russia</div>
+      <ul class="exp-points">
+        <li>Maintained 8 async ASP.NET services connected via RabbitMQ with Redis cache and Oracle DB.</li>
+        <li>Developed a <span class="exp-highlight">WPF desktop application</span>; configured CI/CD using TeamCity.</li>
+      </ul>
+      <a href="https://di-finsim.tilda.ws/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-company">ITIVITI (Broadridge)</span>
+        <span class="exp-period">Jun 2021 – Nov 2021 · 6 mo</span>
+      </div>
+      <div class="exp-role">.NET Developer</div>
+      <div class="exp-industry">FinTech · Trading Tools · HFT · On-site, Russia</div>
+      <ul class="exp-points">
+        <li>Backend development on high-frequency trading tooling within a regulated FinTech environment.</li>
+      </ul>
+      <a href="https://www.broadridge.com/financial-services/capital-markets/trading-and-connectivity/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">02.</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+    <span class="section-summary"><strong>BCS</strong> · Software Engineering</span>
+  </div>
+
+  <div class="education-list">
+    <div class="edu-item">
+      <span class="edu-period">2020 – 2024</span>
+      <div class="edu-main">
+        <div class="edu-degree">BCS in Software Engineering</div>
+        <div class="edu-school">Peter the Great St. Petersburg Polytechnic University</div>
+        <a href="https://english.spbstu.ru/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit university <span class="arrow">↗</span></a>
+      </div>
+      <span class="edu-gpa">GPA · 88</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 80px; padding-bottom: 80px;">
+  <div class="section-header">
+    <span class="section-num">03.</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Core Languages & Frameworks</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11.5.06a1.94 1.94 0 0 0-.97.26L2.4 5.01a1.94 1.94 0 0 0-.97 1.68v10.62c0 .69.37 1.33.97 1.68l8.13 4.69a1.94 1.94 0 0 0 1.94 0l8.13-4.69c.6-.35.97-.99.97-1.68V6.69c0-.69-.37-1.33-.97-1.68L12.47.32A1.94 1.94 0 0 0 11.5.06zm.5 5.94a6 6 0 0 1 5.2 3l-2.6 1.5a3 3 0 1 0 0 3l2.6 1.5A6 6 0 1 1 12 6zm5 1v1h-1v1h1v1h-1v1h1v1h1v-1h1v-1h-1v-1h1v-1h-1V7zm2 1h1v1h-1zm-3 2h1v1h-1z"/></svg></span>C#</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M.79 12.13c0 .9.1 1.78.27 2.63h7v-1.57H1.32a10.8 10.8 0 0 1-.07-2.06h6.86V9.56H1.45a10.6 10.6 0 0 1 .59-2.06h6V5.94H2.81A11.18 11.18 0 0 1 12 .81a11.19 11.19 0 0 1 11.21 11.32A11.19 11.19 0 0 1 12 23.46a11.18 11.18 0 0 1-9.95-6.16h6.01v-1.56h-7A11.13 11.13 0 0 1 .79 12.13zm10.92-2.78a1.46 1.46 0 1 1 0 2.92 1.46 1.46 0 0 1 0-2.92zm5.39-3.04 1.42-.83 1.42.83v1.66l-1.42.83-1.42-.83zm-3.51 4.16 1.42-.82 1.42.82v1.66l-1.42.83-1.42-.83zm7.02 0 1.42-.82 1.42.82v1.66l-1.42.83-1.42-.83zm-3.51 4.17 1.42-.83 1.42.83v1.66l-1.42.82-1.42-.82z"/></svg></span>ASP.NET Core</span>
+        <span class="skill-tag primary">.NET Core</span>
+        <span class="skill-tag primary">EF Core</span>
+        <span class="skill-tag">xUnit</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">SQL / PL-SQL</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Cloud & DevOps</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.483 21.3H24l-9.84-17.16-3.103 8.55 5.65 6.74-10.382 1.83zM5.4 6.61L0 15.94l3.473.001L9.7 5.6z"/></svg></span>Azure</span>
+        <span class="skill-tag primary">AWS</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 0 0 .186-.186V3.574a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.186m0 2.716h2.118a.187.187 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 0 0 .185-.186V6.29a.185.185 0 0 0-.185-.185H5.136a.186.186 0 0 0-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 0 0 .185-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.186.186 0 0 0-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.05-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 0 0-.75.748 11.376 11.376 0 0 0 .692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 0 0 3.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></svg></span>Docker</span>
+        <span class="skill-tag primary">GitHub Actions</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0L1.605 6v12L12 24l10.395-6V6L12 0zm0 2.31l8.395 4.846v9.688L12 21.69l-8.395-4.846V7.156L12 2.31zM7.5 8.25v7.5h2.25V12h.75c1.243 0 2.25-1.007 2.25-2.25S11.743 7.5 10.5 7.5H7.5zm2.25 1.5h.75a.75.75 0 0 1 0 1.5h-.75v-1.5zm5.625 1.5a2.625 2.625 0 1 0 0 5.25 2.625 2.625 0 0 0 0-5.25zm0 1.5a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25z"/></svg></span>NuGet</span>
+        <span class="skill-tag">Azure DevOps</span>
+        <span class="skill-tag">TeamCity</span>
+        <span class="skill-tag">Kubernetes</span>
+        <span class="skill-tag">S3</span>
+        <span class="skill-tag">Windows</span>
+        <span class="skill-tag">Linux</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Messaging & Architecture</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M23.035 9.601h-7.677a.956.956 0 0 1-.962-.962V.962a.956.956 0 0 0-.962-.956H10.56a.956.956 0 0 0-.962.956v7.677a.956.956 0 0 1-.962.962H5.762a.956.956 0 0 1-.961-.962V.962A.956.956 0 0 0 3.839 0H.962A.956.956 0 0 0 0 .962v22.076c0 .53.431.962.962.962h22.073a.956.956 0 0 0 .965-.962V10.561a.956.956 0 0 0-.965-.96zm-4.797 8.07a1.438 1.438 0 0 1-1.443 1.436h-1.92a1.438 1.438 0 0 1-1.443-1.436v-1.927c0-.792.646-1.436 1.443-1.436h1.92c.797 0 1.443.644 1.443 1.436z"/></svg></span>RabbitMQ</span>
+        <span class="skill-tag primary">Azure Service Bus</span>
+        <span class="skill-tag">MCP / AI Agents</span>
+        <span class="skill-tag">SAGAs</span>
+        <span class="skill-tag">Microservices</span>
+        <span class="skill-tag">Event-driven</span>
+        <span class="skill-tag">DDD</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17.128 0a8.726 8.726 0 0 0-2.276.304l-.041.014a8.292 8.292 0 0 0-1.041.37 9.357 9.357 0 0 0-1.671-.142c-1.582.025-2.956.405-4.059 1.087-1.103-.371-3.117-.97-5.249-.616-1.437.236-2.638.978-3.327 2.07-1.378 2.184-.927 6.158.601 9.954.737 1.83 1.685 3.355 2.74 4.41 1.02 1.018 2.336 1.78 3.487.952.927-.667 1.265-1.79 1.41-2.668.119.011.241.024.371.024.795.013 1.51-.166 1.987-.301.011.105.024.207.039.314.097.682.281 1.34.524 1.812.131.265.27.499.418.706.149.207.302.391.519.535.215.144.503.255.795.262a1.59 1.59 0 0 0 .807-.187c.435-.225.749-.66.95-1.119.196-.45.323-.948.394-1.452 1.001 1.13 2.354 1.766 3.812 1.879 2.151.166 4.337-.825 4.83-2.964.493-2.139-1.005-4.083-3.156-4.249-2.151-.165-4.336.826-4.83 2.965-.494 2.139 1.005 4.083 3.156 4.249z"/></svg></span>PostgreSQL</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10.5 1.515c-.892.012-1.745.143-2.473.395-1.456.503-2.27 1.319-2.27 2.157s.814 1.654 2.27 2.157c1.456.503 3.488.503 4.945 0 1.456-.503 2.27-1.319 2.27-2.157s-.814-1.654-2.27-2.157c-.728-.252-1.581-.383-2.473-.395zm-9.59 5.83a.91.91 0 0 0-.66.36C-.5 9.001.97 10.756 4.218 11.927c3.247 1.171 8.317 1.171 11.564 0 3.248-1.171 4.718-2.926 3.971-4.222a.91.91 0 0 0-.66-.36c-.42-.06-.92.13-1.41.46l-.06.04c-.92.62-2.18 1.13-3.7 1.48-1.52.35-3.21.42-4.83.21l-.13-.02c-1.62-.21-3.04-.7-4.13-1.42l-.06-.04c-.49-.33-.99-.52-1.41-.46zm12.34 5.93c-2.78.96-7.06.96-9.84 0-1.4-.49-2.41-1.13-3.01-1.86-.45.37-.7.78-.7 1.21 0 .84.86 1.66 2.42 2.18 3.12 1.04 8.18 1.04 11.3 0 1.56-.52 2.42-1.34 2.42-2.18 0-.43-.25-.84-.7-1.21-.6.73-1.61 1.37-3.01 1.86zm-.04 4.05c-2.78.96-6.98.96-9.76 0-1.41-.49-2.42-1.14-3.02-1.87-.45.37-.7.78-.7 1.22 0 .84.86 1.66 2.42 2.18 3.12 1.04 8.26 1.04 11.38 0 1.56-.52 2.42-1.34 2.42-2.18 0-.44-.25-.85-.7-1.22-.6.73-1.62 1.38-3.04 1.87Z"/></svg></span>Redis</span>
+        <span class="skill-tag">RavenDB</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16.412 4.412h-8.82a7.588 7.588 0 0 0 0 15.176h8.82a7.588 7.588 0 0 0 0-15.176zm-.193 12.502H7.786a4.915 4.915 0 0 1 0-9.828h8.433a4.914 4.914 0 1 1 0 9.828z"/></svg></span>Oracle DB</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Protocols & Practices</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">REST API</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.4a9.6 9.6 0 0 1 9.6 9.6 9.6 9.6 0 0 1-9.6 9.6A9.6 9.6 0 0 1 2.4 12 9.6 9.6 0 0 1 12 2.4zm-1.2 3.6v3.6H7.2V12h3.6v3.6h2.4V12h3.6V9.6h-3.6V6h-2.4z"/></svg></span>gRPC</span>
+        <span class="skill-tag">Agile / Scrum</span>
+        <span class="skill-tag">Code Review</span>
+        <span class="skill-tag">Mentoring</span>
+        <span class="skill-tag">Refactoring</span>
+        <span class="skill-tag">System Design</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">English — Fluent</span>
+        <span class="skill-tag primary">Russian — Native</span>
+        <span class="skill-tag">Hebrew — Beginner</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-header">
+    <span class="section-num">04.</span>
+    <h2 class="section-title">Architecture &amp; Design</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="arch-inner">
+    <div class="arch-text">
+      <h3>I think in <em>diagrams</em> before I think in code.</h3>
+      <p>
+        Before a single endpoint gets written, I sketch the system — bounded contexts, message flows, failure modes, fan-out paths. Good architecture is a conversation, and diagrams are how it gets had.
+      </p>
+      <p>
+        I lean on <span class="exp-highlight">C4 models</span> for system context and containers, <span class="exp-highlight">UML</span> for class and state machines, and <span class="exp-highlight">sequence diagrams</span> to nail down async choreography across services. Tools of choice: PlantUML, Structurizr, draw.io, Mermaid, Excalidraw.
+      </p>
+      <p>
+        That's why I'm equally <span class="exp-highlight">open to System Architect / Solution Architect roles</span> — designing the shape of a system is the part of the job I enjoy the most.
+      </p>
+      <p>
+        And I'm just as comfortable <span class="exp-highlight">leading the team that builds it</span> — mentoring engineers, running technical interviews, owning delivery and code-review culture, and translating architecture decisions into a roadmap the team actually wants to ship.
+      </p>
+      <div class="arch-tags">
+        <span class="skill-tag primary">C4 Model</span>
+        <span class="skill-tag primary">UML</span>
+        <span class="skill-tag primary">Sequence Diagrams</span>
+        <span class="skill-tag primary">Team Leadership</span>
+        <span class="skill-tag">PlantUML</span>
+        <span class="skill-tag">Structurizr</span>
+        <span class="skill-tag">Mermaid</span>
+        <span class="skill-tag">Excalidraw</span>
+        <span class="skill-tag">Mentoring</span>
+        <span class="skill-tag">Tech Interviews</span>
+      </div>
+    </div>
+
+    <div class="arch-diagram">
+      <div class="arch-diagram-header">
+        <span class="arch-diagram-title">Orchestration-based Saga · Booking Saga</span>
+        <span class="arch-diagram-meta">create booking · happy path</span>
+      </div>
+      <svg class="arch-svg" viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg">
+        <!-- Defs: arrowheads -->
+        <defs>
+          <marker id="arrow-cmd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#4af0a0" opacity="0.85"/>
+          </marker>
+          <marker id="arrow-reply" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#3dd6f5" opacity="0.7"/>
+          </marker>
+          <marker id="arrow-init" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#f5a623" opacity="0.85"/>
+          </marker>
+        </defs>
+
+        <!-- Background grid -->
+        <g opacity="0.15">
+          <path d="M 0 60 H 480 M 0 120 H 480 M 0 180 H 480 M 0 240 H 480 M 0 300 H 480 M 0 360 H 480" stroke="#1e2235" stroke-width="0.5"/>
+          <path d="M 60 0 V 380 M 120 0 V 380 M 180 0 V 380 M 240 0 V 380 M 300 0 V 380 M 360 0 V 380 M 420 0 V 380" stroke="#1e2235" stroke-width="0.5"/>
+        </g>
+
+        <!-- Client / Customer -->
+        <g>
+          <circle cx="40" cy="38" r="9" fill="#181b22" stroke="#f5a623" stroke-width="1"/>
+          <rect x="29" y="49" width="22" height="16" rx="2" fill="#181b22" stroke="#f5a623" stroke-width="1"/>
+          <text x="40" y="84" class="node-label" text-anchor="middle">Customer</text>
+          <text x="40" y="95" class="node-sub" text-anchor="middle">[Person]</text>
+        </g>
+
+        <!-- Booking Service (with orchestrator inside) -->
+        <rect x="150" y="20" width="180" height="90" rx="3" class="node-box primary"/>
+        <text x="240" y="40" class="node-label" text-anchor="middle">Booking Service</text>
+        <text x="240" y="52" class="node-sub" text-anchor="middle">[ASP.NET Core]</text>
+        <!-- Inner orchestrator box -->
+        <rect x="170" y="62" width="140" height="38" rx="2" fill="#13151c" stroke="#3dd6f5" stroke-width="1" stroke-dasharray="3 2"/>
+        <text x="240" y="78" class="node-label" text-anchor="middle" style="fill:#3dd6f5">Booking Saga</text>
+        <text x="240" y="90" class="node-sub" text-anchor="middle">orchestrator</text>
+        <circle cx="318" cy="32" r="3" class="pulse-dot"/>
+
+        <!-- Participant: Inventory Service -->
+        <rect x="20" y="170" width="130" height="60" rx="2" class="node-box secondary"/>
+        <text x="85" y="194" class="node-label" text-anchor="middle">Inventory Service</text>
+        <text x="85" y="208" class="node-sub" text-anchor="middle">[reserve room]</text>
+        <text x="85" y="220" class="node-sub" text-anchor="middle">.NET 9</text>
+
+        <!-- Participant: Payment Service -->
+        <rect x="175" y="170" width="130" height="60" rx="2" class="node-box secondary"/>
+        <text x="240" y="194" class="node-label" text-anchor="middle">Payment Service</text>
+        <text x="240" y="208" class="node-sub" text-anchor="middle">[charge card]</text>
+        <text x="240" y="220" class="node-sub" text-anchor="middle">.NET 9</text>
+
+        <!-- Participant: Notification Service -->
+        <rect x="330" y="170" width="130" height="60" rx="2" class="node-box secondary"/>
+        <text x="395" y="194" class="node-label" text-anchor="middle">Notification Svc</text>
+        <text x="395" y="208" class="node-sub" text-anchor="middle">[send confirm]</text>
+        <text x="395" y="220" class="node-sub" text-anchor="middle">.NET 9</text>
+
+        <!-- Databases under each participant -->
+        <g>
+          <ellipse cx="85" cy="285" rx="32" ry="5" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
+          <path d="M 53 285 V 300 A 32 5 0 0 0 117 300 V 285" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
+          <ellipse cx="85" cy="285" rx="32" ry="5" fill="none" stroke="#4af0a0" stroke-width="1"/>
+          <text x="85" y="289" class="node-sub" text-anchor="middle">inventory_db</text>
+        </g>
+        <g>
+          <ellipse cx="240" cy="285" rx="32" ry="5" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
+          <path d="M 208 285 V 300 A 32 5 0 0 0 272 300 V 285" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
+          <ellipse cx="240" cy="285" rx="32" ry="5" fill="none" stroke="#4af0a0" stroke-width="1"/>
+          <text x="240" y="289" class="node-sub" text-anchor="middle">payments_db</text>
+        </g>
+        <g>
+          <ellipse cx="395" cy="285" rx="32" ry="5" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
+          <path d="M 363 285 V 300 A 32 5 0 0 0 427 300 V 285" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
+          <ellipse cx="395" cy="285" rx="32" ry="5" fill="none" stroke="#4af0a0" stroke-width="1"/>
+          <text x="395" y="289" class="node-sub" text-anchor="middle">outbox_db</text>
+        </g>
+
+        <!-- Booking DB -->
+        <g>
+          <ellipse cx="240" cy="350" rx="38" ry="6" fill="#181b22" stroke="#3dd6f5" stroke-width="1"/>
+          <path d="M 202 350 V 368 A 38 6 0 0 0 278 368 V 350" fill="#181b22" stroke="#3dd6f5" stroke-width="1"/>
+          <ellipse cx="240" cy="350" rx="38" ry="6" fill="none" stroke="#3dd6f5" stroke-width="1"/>
+          <text x="240" y="354" class="node-sub" text-anchor="middle">bookings_db</text>
+        </g>
+
+        <!-- Customer -> Booking Service: POST /bookings -->
+        <path d="M 60 50 L 148 50" class="edge solid" stroke="#f5a623" marker-end="url(#arrow-init)"/>
+        <text x="104" y="44" class="edge-label" text-anchor="middle" style="fill:#f5a623">POST /bookings</text>
+
+        <!-- Orchestrator -> Inventory: ReserveRoom command -->
+        <path d="M 175 110 Q 130 140 100 168" class="edge solid" marker-end="url(#arrow-cmd)"/>
+        <text x="118" y="135" class="edge-label" text-anchor="middle">1. ReserveRoom</text>
+
+        <!-- Inventory -> Orchestrator: RoomReserved reply -->
+        <path d="M 110 168 Q 160 140 195 110" class="edge dashed" marker-end="url(#arrow-reply)"/>
+        <text x="170" y="152" class="edge-label" text-anchor="middle" style="fill:#3dd6f5">2. RoomReserved</text>
+
+        <!-- Orchestrator -> Payment: ChargeCard command -->
+        <path d="M 240 110 L 240 168" class="edge solid" marker-end="url(#arrow-cmd)"/>
+        <text x="262" y="142" class="edge-label">3. ChargeCard</text>
+
+        <!-- Payment -> Orchestrator: PaymentApproved reply -->
+        <path d="M 255 168 Q 280 140 280 110" class="edge dashed" marker-end="url(#arrow-reply)"/>
+        <text x="305" y="142" class="edge-label" style="fill:#3dd6f5">4. PaymentApproved</text>
+
+        <!-- Orchestrator -> Notification: SendConfirmation command -->
+        <path d="M 305 110 Q 350 140 380 168" class="edge solid" marker-end="url(#arrow-cmd)"/>
+        <text x="362" y="135" class="edge-label" text-anchor="middle">5. SendConfirmation</text>
+
+        <!-- Notification -> Orchestrator: ConfirmationSent reply -->
+        <path d="M 395 168 Q 360 140 325 110" class="edge dashed" marker-end="url(#arrow-reply)"/>
+
+        <!-- Participants -> their DBs -->
+        <path d="M 85 230 L 85 278" class="edge solid" marker-end="url(#arrow-cmd)"/>
+        <path d="M 240 230 L 240 278" class="edge solid" marker-end="url(#arrow-cmd)"/>
+        <path d="M 395 230 L 395 278" class="edge solid" marker-end="url(#arrow-cmd)"/>
+
+        <!-- Booking Service -> bookings_db -->
+        <path d="M 240 110 Q 110 240 200 348" class="edge dashed" stroke-opacity="0.4"/>
+        <path d="M 200 348 L 240 343" class="edge dashed" marker-end="url(#arrow-reply)" stroke-opacity="0.6"/>
+
+        <!-- Legend -->
+        <g transform="translate(20, 348)">
+          <line x1="0" y1="0" x2="14" y2="0" stroke="#4af0a0" stroke-width="1"/>
+          <text x="18" y="3" class="edge-label">command</text>
+          <line x1="68" y1="0" x2="82" y2="0" stroke="#3dd6f5" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="86" y="3" class="edge-label">reply</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2>Let's build<br>something <em>great</em>.</h2>
+      <p>
+        Open to senior backend roles, team lead positions, and system / solution architect opportunities — anywhere distributed systems get interesting. Based in Israel, open to remote collaboration across time zones.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:amtuska@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          amtuska@gmail.com
+        </a>
+        <a href="tel:+972557717906" class="contact-link">
+          <span class="contact-link-icon">↗</span>
+          +972 55 771 7906
+        </a>
+        <a href="https://www.linkedin.com/in/alextuskaev" target="_blank" class="contact-link">
+          <span class="contact-link-icon">↗</span>
+          linkedin.com/in/alextuskaev
+        </a>
+        <a href="https://github.com/Tusa101" target="_blank" class="contact-link">
+          <span class="contact-link-icon">↗</span>
+          github.com/Tusa101
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <form class="form" id="contact-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="cf-name">Your name</label>
+          <input type="text" id="cf-name" class="form-input" placeholder="Jane Smith" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-email">Email address</label>
+          <input type="email" id="cf-email" class="form-input" placeholder="jane@company.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-message">Message</label>
+          <textarea id="cf-message" class="form-textarea" placeholder="Tell me about the role or project..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message →</button>
+        <p class="form-hint" id="cf-hint">This will open your email client with the message pre-filled.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Alexander Tuskaev. Built with .NET + Next.js.</p>
+  <a href="#">Back to top ↑</a>
+</footer>
+
+<script>
+  (function () {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const nameEl = document.getElementById('cf-name');
+    const emailEl = document.getElementById('cf-email');
+    const msgEl = document.getElementById('cf-message');
+    const hint = document.getElementById('cf-hint');
+    const RECIPIENT = 'amtuska@gmail.com';
+
+    const setHint = (text, type) => {
+      hint.textContent = text;
+      hint.classList.remove('error', 'success');
+      if (type) hint.classList.add(type);
+    };
+
+    const markInvalid = (el, bad) => {
+      el.classList.toggle('invalid', !!bad);
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = nameEl.value.trim();
+      const email = emailEl.value.trim();
+      const message = msgEl.value.trim();
+
+      // Basic validation
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      markInvalid(nameEl, !name);
+      markInvalid(emailEl, !emailOk);
+      markInvalid(msgEl, !message);
+
+      if (!name || !emailOk || !message) {
+        setHint('Please fill in your name, a valid email, and a message.', 'error');
+        return;
+      }
+
+      // Compose subject + body
+      const subject = `Opportunity / Inquiry from ${name}`;
+      const bodyLines = [
+        `Hi Alexander,`,
+        ``,
+        message,
+        ``,
+        `—`,
+        `From: ${name}`,
+        `Email: ${email}`
+      ];
+      const body = bodyLines.join('\n');
+
+      const mailto =
+        `mailto:${RECIPIENT}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
+
+      // Open the user's mail client
+      window.location.href = mailto;
+      setHint('Opening your email client… If nothing happens, please email amtuska@gmail.com directly.', 'success');
+    });
+
+    // Clear invalid state as user types
+    [nameEl, emailEl, msgEl].forEach(el => {
+      el.addEventListener('input', () => markInvalid(el, false));
+    });
+  })();
+</script>
+
+</body>
+</html>
