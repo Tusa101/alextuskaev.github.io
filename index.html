@@ -468,6 +468,108 @@
     font-weight: 500;
   }
 
+  .exp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    background: rgba(74,240,160,0.04);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 2px;
+  }
+
+  .exp-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(74,240,160,0.1);
+    transform: translateY(-1px);
+  }
+
+  .exp-link .arrow {
+    transition: transform 0.2s ease;
+    font-size: 13px;
+  }
+
+  .exp-link:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+
+  /* ── EDUCATION ── */
+  .education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 24px;
+    align-items: baseline;
+    padding: 22px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    transition: all 0.2s ease;
+  }
+
+  .edu-item:hover {
+    border-color: var(--border);
+    border-left-color: var(--accent);
+    background: var(--bg3);
+    transform: translateX(2px);
+  }
+
+  .edu-period {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .edu-main { display: flex; flex-direction: column; gap: 6px; }
+
+  .edu-degree {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .edu-school {
+    color: var(--muted2);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .edu-gpa {
+    color: var(--accent2);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid rgba(61,214,245,0.3);
+    background: rgba(61,214,245,0.05);
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .edu-item {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .edu-period { order: -1; }
+  }
+
   /* ── SKILLS ── */
   .skills-grid {
     display: grid;
@@ -889,6 +991,7 @@
   <a href="#" class="nav-logo">Alexander<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#architecture">Architecture</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1007,6 +1110,7 @@
         <li>Designed Azure App Service microservices connected to <span class="exp-highlight">AI Agents via MCP</span>; architected SAGA-based distributed and async messaging via Service Bus.</li>
         <li>Led development of the event-driven system core; improved onboarding and interviewing flows.</li>
       </ul>
+      <a href="https://movement-group.com/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
     </div>
 
     <div class="exp-item">
@@ -1022,6 +1126,7 @@
         <li>Critical path optimization improved loaded services speed <span class="exp-highlight">by up to 15%</span>.</li>
         <li>Mentored new hires and conducted technical interviews.</li>
       </ul>
+      <a href="https://appfox.ru/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
     </div>
 
     <div class="exp-item">
@@ -1035,6 +1140,7 @@
         <li>Maintained 8 async ASP.NET services connected via RabbitMQ with Redis cache and Oracle DB.</li>
         <li>Developed a <span class="exp-highlight">WPF desktop application</span>; configured CI/CD using TeamCity.</li>
       </ul>
+      <a href="https://di-finsim.tilda.ws/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
     </div>
 
     <div class="exp-item">
@@ -1047,15 +1153,38 @@
       <ul class="exp-points">
         <li>Backend development on high-frequency trading tooling within a regulated FinTech environment.</li>
       </ul>
+      <a href="https://www.broadridge.com/financial-services/capital-markets/trading-and-connectivity/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit company <span class="arrow">↗</span></a>
     </div>
 
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">02.</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+    <span class="section-summary"><strong>BCS</strong> · Software Engineering</span>
+  </div>
+
+  <div class="education-list">
+    <div class="edu-item">
+      <span class="edu-period">2020 – 2024</span>
+      <div class="edu-main">
+        <div class="edu-degree">BCS in Software Engineering</div>
+        <div class="edu-school">Peter the Great St. Petersburg Polytechnic University</div>
+        <a href="https://english.spbstu.ru/" target="_blank" rel="noopener noreferrer" class="exp-link">Visit university <span class="arrow">↗</span></a>
+      </div>
+      <span class="edu-gpa">GPA · 88</span>
+    </div>
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 80px; padding-bottom: 80px;">
   <div class="section-header">
-    <span class="section-num">02.</span>
+    <span class="section-num">03.</span>
     <h2 class="section-title">Technical Skills</h2>
     <div class="section-line"></div>
   </div>
@@ -1080,6 +1209,7 @@
         <span class="skill-tag primary">AWS</span>
         <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 0 0 .186-.186V3.574a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.186m0 2.716h2.118a.187.187 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 0 0 .185-.186V6.29a.185.185 0 0 0-.185-.185H5.136a.186.186 0 0 0-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 0 0 .185-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.186.186 0 0 0-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.05-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 0 0-.75.748 11.376 11.376 0 0 0 .692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 0 0 3.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></svg></span>Docker</span>
         <span class="skill-tag primary">GitHub Actions</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0L1.605 6v12L12 24l10.395-6V6L12 0zm0 2.31l8.395 4.846v9.688L12 21.69l-8.395-4.846V7.156L12 2.31zM7.5 8.25v7.5h2.25V12h.75c1.243 0 2.25-1.007 2.25-2.25S11.743 7.5 10.5 7.5H7.5zm2.25 1.5h.75a.75.75 0 0 1 0 1.5h-.75v-1.5zm5.625 1.5a2.625 2.625 0 1 0 0 5.25 2.625 2.625 0 0 0 0-5.25zm0 1.5a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25z"/></svg></span>NuGet</span>
         <span class="skill-tag">Azure DevOps</span>
         <span class="skill-tag">TeamCity</span>
         <span class="skill-tag">Kubernetes</span>
@@ -1107,14 +1237,14 @@
         <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10.5 1.515c-.892.012-1.745.143-2.473.395-1.456.503-2.27 1.319-2.27 2.157s.814 1.654 2.27 2.157c1.456.503 3.488.503 4.945 0 1.456-.503 2.27-1.319 2.27-2.157s-.814-1.654-2.27-2.157c-.728-.252-1.581-.383-2.473-.395zm-9.59 5.83a.91.91 0 0 0-.66.36C-.5 9.001.97 10.756 4.218 11.927c3.247 1.171 8.317 1.171 11.564 0 3.248-1.171 4.718-2.926 3.971-4.222a.91.91 0 0 0-.66-.36c-.42-.06-.92.13-1.41.46l-.06.04c-.92.62-2.18 1.13-3.7 1.48-1.52.35-3.21.42-4.83.21l-.13-.02c-1.62-.21-3.04-.7-4.13-1.42l-.06-.04c-.49-.33-.99-.52-1.41-.46zm12.34 5.93c-2.78.96-7.06.96-9.84 0-1.4-.49-2.41-1.13-3.01-1.86-.45.37-.7.78-.7 1.21 0 .84.86 1.66 2.42 2.18 3.12 1.04 8.18 1.04 11.3 0 1.56-.52 2.42-1.34 2.42-2.18 0-.43-.25-.84-.7-1.21-.6.73-1.61 1.37-3.01 1.86zm-.04 4.05c-2.78.96-6.98.96-9.76 0-1.41-.49-2.42-1.14-3.02-1.87-.45.37-.7.78-.7 1.22 0 .84.86 1.66 2.42 2.18 3.12 1.04 8.26 1.04 11.38 0 1.56-.52 2.42-1.34 2.42-2.18 0-.44-.25-.85-.7-1.22-.6.73-1.62 1.38-3.04 1.87Z"/></svg></span>Redis</span>
         <span class="skill-tag">RavenDB</span>
         <span class="skill-tag">MongoDB</span>
-        <span class="skill-tag">Oracle DB</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16.412 4.412h-8.82a7.588 7.588 0 0 0 0 15.176h8.82a7.588 7.588 0 0 0 0-15.176zm-.193 12.502H7.786a4.915 4.915 0 0 1 0-9.828h8.433a4.914 4.914 0 1 1 0 9.828z"/></svg></span>Oracle DB</span>
       </div>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Protocols & Practices</div>
       <div class="skill-tags">
         <span class="skill-tag primary">REST API</span>
-        <span class="skill-tag">gRPC</span>
+        <span class="skill-tag primary"><span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.4a9.6 9.6 0 0 1 9.6 9.6 9.6 9.6 0 0 1-9.6 9.6A9.6 9.6 0 0 1 2.4 12 9.6 9.6 0 0 1 12 2.4zm-1.2 3.6v3.6H7.2V12h3.6v3.6h2.4V12h3.6V9.6h-3.6V6h-2.4z"/></svg></span>gRPC</span>
         <span class="skill-tag">Agile / Scrum</span>
         <span class="skill-tag">Code Review</span>
         <span class="skill-tag">Mentoring</span>
@@ -1136,7 +1266,7 @@
 <!-- ARCHITECTURE -->
 <section id="architecture">
   <div class="section-header">
-    <span class="section-num">03.</span>
+    <span class="section-num">04.</span>
     <h2 class="section-title">Architecture &amp; Design</h2>
     <div class="section-line"></div>
   </div>
