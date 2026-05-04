@@ -293,9 +293,9 @@ function initContactForm(email) {
 }
 
 function initFormTabs() {
-  const tabs     = document.querySelectorAll('.form-tab');
+  const tabs      = document.querySelectorAll('.form-tab');
   const emailForm = document.getElementById('contact-form');
-  const waForm   = document.getElementById('whatsapp-form');
+  const waForm    = document.getElementById('whatsapp-form');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -303,8 +303,8 @@ function initFormTabs() {
       tab.classList.add('form-tab--active');
 
       const isWa = tab.dataset.tab === 'whatsapp';
-      emailForm.style.display = isWa ? 'none' : '';
-      waForm.style.display    = isWa ? '' : 'none';
+      emailForm.classList.toggle('form--hidden', isWa);
+      waForm.classList.toggle('form--hidden', !isWa);
     });
   });
 }

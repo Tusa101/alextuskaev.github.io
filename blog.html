@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self';">
 <meta name="robots" content="index, follow, noarchive">
 <title>Blog — Alexander Tuskaev · Coming soon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="blog.css">
+<script src="theme.js"></script>
 <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
 <link rel="shortcut icon" href="favicons/favicon.ico" />
@@ -22,9 +23,13 @@
 <nav>
   <div class="nav-left">
     <a href="index.html" class="nav-back" title="Back to portfolio" aria-label="Back to portfolio">←</a>
-    <a href="index.html" class="nav-logo">Alexander<span>.</span></a>
+    <a href="index.html" class="nav-logo">
+      <img src="favicons/favicon.svg" alt="" class="nav-logo-img" />
+      Alexander<span>.</span>
+    </a>
   </div>
   <ul class="nav-links">
+    <li><a href="index.html#">About</a></li>
     <li><a href="index.html#experience">Experience</a></li>
     <li><a href="index.html#education">Education</a></li>
     <li><a href="index.html#skills">Skills</a></li>
@@ -32,6 +37,7 @@
     <li><a href="index.html#contact">Contact</a></li>
     <li><a href="blog.html" class="active">Blog</a></li>
   </ul>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme"></button>
 </nav>
 
 <!-- HERO -->

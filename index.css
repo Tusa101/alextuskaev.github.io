@@ -7,18 +7,78 @@
 }
 
 :root {
-    --bg: #0b0c0f;
-    --bg2: #111318;
-    --bg3: #181b22;
-    --line: #1f2330;
-    --accent: #4af0a0;
+    /* ── Dark theme (default) ── */
+    --bg:      #0b0c0f;
+    --bg2:     #111318;
+    --bg3:     #181b22;
+    --line:    #1f2330;
+    --accent:  #4af0a0;
     --accent2: #3dd6f5;
     --accent3: #f5a623;
-    --text: #e8eaf0;
-    --muted: #6b7185;
-    --muted2: #9099b5;
-    --card: #13151c;
-    --border: #1e2235;
+    --text:    #e8eaf0;
+    --muted:   #6b7185;
+    --muted2:  #9099b5;
+    --card:    #13151c;
+    --border:  #1e2235;
+
+    /* ── Derived tokens ── */
+    --nav-bg:       rgba(11, 12, 15, 0.95);
+    --shadow-lg:    rgba(0, 0, 0, 0.60);
+    --shadow-md:    rgba(0, 0, 0, 0.50);
+    --accent-hover: #6affb8;
+
+    /* Accent tints */
+    --accent-a4:    rgba(74, 240, 160, 0.04);
+    --accent-a5:    rgba(74, 240, 160, 0.05);
+    --accent-a6:    rgba(74, 240, 160, 0.06);
+    --accent-a8:    rgba(74, 240, 160, 0.08);
+    --accent-a10:   rgba(74, 240, 160, 0.10);
+    --accent-a20:   rgba(74, 240, 160, 0.20);
+    --accent-a30:   rgba(74, 240, 160, 0.30);
+    --accent2-a5:   rgba(61, 214, 245, 0.05);
+    --accent2-a10:  rgba(61, 214, 245, 0.10);
+    --accent2-a20:  rgba(61, 214, 245, 0.20);
+    --accent2-a30:  rgba(61, 214, 245, 0.30);
+    --accent3-a8:   rgba(245, 166, 35, 0.08);
+    --accent3-a25:  rgba(245, 166, 35, 0.25);
+}
+
+[data-theme="light"] {
+    --bg:      #f5f6fa;
+    --bg2:     #eceef5;
+    --bg3:     #e4e6f0;
+    --line:    #c8cce0;
+    --accent:  #00a86b;
+    --accent2: #0090bb;
+    --accent3: #c47f0a;
+    --text:    #1a1c2e;
+    --muted:   #5a6075;
+    --muted2:  #7880a0;
+    --card:    #ffffff;
+    --border:  #c4c9df;
+
+    --nav-bg:       rgba(245, 246, 250, 0.95);
+    --shadow-lg:    rgba(0, 0, 0, 0.12);
+    --shadow-md:    rgba(0, 0, 0, 0.10);
+    --accent-hover: #00c882;
+
+    --accent-a4:    rgba(0, 168, 107, 0.04);
+    --accent-a5:    rgba(0, 168, 107, 0.05);
+    --accent-a6:    rgba(0, 168, 107, 0.06);
+    --accent-a8:    rgba(0, 168, 107, 0.08);
+    --accent-a10:   rgba(0, 168, 107, 0.10);
+    --accent-a20:   rgba(0, 168, 107, 0.22);
+    --accent-a30:   rgba(0, 168, 107, 0.30);
+    --accent2-a5:   rgba(0, 144, 187, 0.05);
+    --accent2-a10:  rgba(0, 144, 187, 0.10);
+    --accent2-a20:  rgba(0, 144, 187, 0.22);
+    --accent2-a30:  rgba(0, 144, 187, 0.30);
+    --accent3-a8:   rgba(196, 127, 10, 0.08);
+    --accent3-a25:  rgba(196, 127, 10, 0.25);
+}
+
+[data-theme="light"] .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300a86b'/%3E%3C/svg%3E");
 }
 
 html {
@@ -56,7 +116,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to bottom, rgba(11, 12, 15, 0.95) 0%, transparent 100%);
+    background: linear-gradient(to bottom, var(--nav-bg) 0%, transparent 100%);
     backdrop-filter: blur(4px);
 }
 
@@ -135,8 +195,8 @@ nav {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(74, 240, 160, 0.08);
-    border: 1px solid rgba(74, 240, 160, 0.2);
+    background: var(--accent-a8);
+    border: 1px solid var(--accent-a20);
     color: var(--accent);
     font-size: 11px;
     letter-spacing: 0.12em;
@@ -222,7 +282,7 @@ nav {
 }
 
 .btn-primary:hover {
-    background: #6affb8;
+    background: var(--accent-hover);
     transform: translateY(-1px);
 }
 
@@ -256,7 +316,7 @@ nav {
     width: 100%;
     max-width: 460px;
     font-size: 12px;
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(74, 240, 160, 0.05);
+    box-shadow: 0 32px 80px var(--shadow-lg), 0 0 0 1px var(--accent-a5);
 }
 
 .terminal-bar {
@@ -329,8 +389,8 @@ nav {
 
 .t-tag {
     display: inline-block;
-    background: rgba(74, 240, 160, 0.1);
-    border: 1px solid rgba(74, 240, 160, 0.2);
+    background: var(--accent-a10);
+    border: 1px solid var(--accent-a20);
     color: var(--accent);
     font-size: 10px;
     padding: 2px 8px;
@@ -340,8 +400,8 @@ nav {
 
 .t-tag2 {
     display: inline-block;
-    background: rgba(61, 214, 245, 0.1);
-    border: 1px solid rgba(61, 214, 245, 0.2);
+    background: var(--accent2-a10);
+    border: 1px solid var(--accent2-a20);
     color: var(--accent2);
     font-size: 10px;
     padding: 2px 8px;
@@ -448,8 +508,8 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(74, 240, 160, 0.08);
-    border: 1px solid rgba(74, 240, 160, 0.2);
+    background: var(--accent-a8);
+    border: 1px solid var(--accent-a20);
     color: var(--accent);
     font-size: 11px;
     letter-spacing: 0.08em;
@@ -580,7 +640,7 @@ section {
     padding: 7px 14px;
     border: 1px solid var(--border);
     color: var(--muted2);
-    background: rgba(74, 240, 160, 0.04);
+    background: var(--accent-a4);
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.08em;
@@ -593,7 +653,7 @@ section {
 .exp-link:hover {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(74, 240, 160, 0.1);
+    background: var(--accent-a10);
     transform: translateY(-1px);
 }
 
@@ -664,8 +724,8 @@ section {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 4px 10px;
-    border: 1px solid rgba(61, 214, 245, 0.3);
-    background: rgba(61, 214, 245, 0.05);
+    border: 1px solid var(--accent2-a30);
+    background: var(--accent2-a5);
     border-radius: 2px;
     white-space: nowrap;
 }
@@ -682,6 +742,18 @@ section {
 }
 
 /* ── SKILLS ── */
+#skills {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+/* Hidden tab panel (replaces style="display:none" — avoids CSP inline-style violation) */
+.form.form--hidden { display: none; }
+
+/* Intro hint above WhatsApp form fields */
+.form-hint--intro { margin-bottom: 4px; }
+
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -723,13 +795,13 @@ section {
 .skill-tag:hover {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(74, 240, 160, 0.05);
+    background: var(--accent-a5);
 }
 
 .skill-tag.primary {
-    border-color: rgba(74, 240, 160, 0.3);
+    border-color: var(--accent-a30);
     color: var(--accent);
-    background: rgba(74, 240, 160, 0.06);
+    background: var(--accent-a6);
 }
 
 .skill-tag {
@@ -797,7 +869,7 @@ section {
     border: 1px solid var(--border);
     padding: 28px;
     position: relative;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 24px 60px var(--shadow-md);
 }
 
 .arch-diagram-header {
@@ -1017,7 +1089,7 @@ section {
 }
 
 .form-submit:hover {
-    background: #6affb8;
+    background: var(--accent-hover);
     transform: translateY(-1px);
 }
 
@@ -1188,6 +1260,65 @@ footer a:hover {
 .terminal {
     animation: fadeUp 0.8s 0.3s ease both;
 }
+
+/* ── THEME TOGGLE ── */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-a6);
+}
+
+/* ── SVG ARCHITECTURE DIAGRAM — THEME ADAPTATION ── */
+/* Arrow marker fills (CSS overrides SVG presentation attributes) */
+#arrow-cmd path  { fill: var(--accent); }
+#arrow-reply path { fill: var(--accent2); }
+#arrow-init path  { fill: var(--accent3); }
+
+/* Background grid */
+.arch-svg .arch-grid path { stroke: var(--border); }
+
+/* Customer person figure */
+.arch-svg .arch-person circle,
+.arch-svg .arch-person rect { fill: var(--bg3); stroke: var(--accent3); }
+
+/* Inner orchestrator dashed box */
+.arch-svg .arch-inner-box { fill: var(--card); stroke: var(--accent2); }
+
+/* Database cylinders — participant DBs */
+.arch-svg .arch-db ellipse              { fill: var(--bg3); stroke: var(--accent); }
+.arch-svg .arch-db ellipse[fill="none"] { fill: none; }
+.arch-svg .arch-db path                 { fill: var(--bg3); stroke: var(--accent); }
+
+/* Booking DB (accent2-colored) */
+.arch-svg .arch-db--booking ellipse              { stroke: var(--accent2); }
+.arch-svg .arch-db--booking ellipse[fill="none"] { fill: none; }
+.arch-svg .arch-db--booking path                 { stroke: var(--accent2); }
+
+/* Legend lines */
+.arch-svg .arch-legend line:first-of-type { stroke: var(--accent); }
+.arch-svg .arch-legend line:last-of-type  { stroke: var(--accent2); }
+
+/* Accent-coloured text labels in SVG */
+.arch-svg .node-label--accent2  { fill: var(--accent2); }
+.arch-svg .edge-label--accent2  { fill: var(--accent2); }
+.arch-svg .edge-label--accent3  { fill: var(--accent3); }
 
 /* Scrollbar */
 ::-webkit-scrollbar {

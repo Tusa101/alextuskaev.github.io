@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self';">
 <meta name="robots" content="index, follow, noarchive">
 <title>Alexander Tuskaev — Senior .NET Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="index.css">
+<script src="theme.js"></script>
 <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
 <link rel="shortcut icon" href="favicons/favicon.ico" />
@@ -25,6 +26,7 @@
     Alexander<span>.</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#">About</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -32,6 +34,7 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="blog.html">Blog</a></li>
   </ul>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme"></button>
 </nav>
 
 <!-- HERO -->
@@ -86,7 +89,7 @@
 </section>
 
 <!-- SKILLS -->
-<section id="skills" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 80px; padding-bottom: 80px;">
+<section id="skills">
   <div class="section-header">
     <span class="section-num">03.</span>
     <h2 class="section-title">Technical Skills</h2>
@@ -126,13 +129,13 @@
         </defs>
 
         <!-- Background grid -->
-        <g opacity="0.15">
+        <g class="arch-grid" opacity="0.15">
           <path d="M 0 60 H 480 M 0 120 H 480 M 0 180 H 480 M 0 240 H 480 M 0 300 H 480 M 0 360 H 480" stroke="#1e2235" stroke-width="0.5"/>
           <path d="M 60 0 V 380 M 120 0 V 380 M 180 0 V 380 M 240 0 V 380 M 300 0 V 380 M 360 0 V 380 M 420 0 V 380" stroke="#1e2235" stroke-width="0.5"/>
         </g>
 
         <!-- Client / Customer -->
-        <g>
+        <g class="arch-person">
           <circle cx="40" cy="38" r="9" fill="#181b22" stroke="#f5a623" stroke-width="1"/>
           <rect x="29" y="49" width="22" height="16" rx="2" fill="#181b22" stroke="#f5a623" stroke-width="1"/>
           <text x="40" y="84" class="node-label" text-anchor="middle">Customer</text>
@@ -144,8 +147,8 @@
         <text x="240" y="40" class="node-label" text-anchor="middle">Booking Service</text>
         <text x="240" y="52" class="node-sub" text-anchor="middle">[ASP.NET Core]</text>
         <!-- Inner orchestrator box -->
-        <rect x="170" y="62" width="140" height="38" rx="2" fill="#13151c" stroke="#3dd6f5" stroke-width="1" stroke-dasharray="3 2"/>
-        <text x="240" y="78" class="node-label" text-anchor="middle" style="fill:#3dd6f5">Booking Saga</text>
+        <rect x="170" y="62" width="140" height="38" rx="2" class="arch-inner-box" fill="#13151c" stroke="#3dd6f5" stroke-width="1" stroke-dasharray="3 2"/>
+        <text x="240" y="78" class="node-label node-label--accent2" text-anchor="middle">Booking Saga</text>
         <text x="240" y="90" class="node-sub" text-anchor="middle">orchestrator</text>
         <circle cx="318" cy="32" r="3" class="pulse-dot"/>
 
@@ -168,19 +171,19 @@
         <text x="395" y="220" class="node-sub" text-anchor="middle">.NET 9</text>
 
         <!-- Databases under each participant -->
-        <g>
+        <g class="arch-db">
           <ellipse cx="85" cy="285" rx="32" ry="5" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
           <path d="M 53 285 V 300 A 32 5 0 0 0 117 300 V 285" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
           <ellipse cx="85" cy="285" rx="32" ry="5" fill="none" stroke="#4af0a0" stroke-width="1"/>
           <text x="85" y="289" class="node-sub" text-anchor="middle">inventory_db</text>
         </g>
-        <g>
+        <g class="arch-db">
           <ellipse cx="240" cy="285" rx="32" ry="5" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
           <path d="M 208 285 V 300 A 32 5 0 0 0 272 300 V 285" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
           <ellipse cx="240" cy="285" rx="32" ry="5" fill="none" stroke="#4af0a0" stroke-width="1"/>
           <text x="240" y="289" class="node-sub" text-anchor="middle">payments_db</text>
         </g>
-        <g>
+        <g class="arch-db">
           <ellipse cx="395" cy="285" rx="32" ry="5" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
           <path d="M 363 285 V 300 A 32 5 0 0 0 427 300 V 285" fill="#181b22" stroke="#4af0a0" stroke-width="1"/>
           <ellipse cx="395" cy="285" rx="32" ry="5" fill="none" stroke="#4af0a0" stroke-width="1"/>
@@ -188,7 +191,7 @@
         </g>
 
         <!-- Booking DB -->
-        <g>
+        <g class="arch-db arch-db--booking">
           <ellipse cx="240" cy="350" rx="38" ry="6" fill="#181b22" stroke="#3dd6f5" stroke-width="1"/>
           <path d="M 202 350 V 368 A 38 6 0 0 0 278 368 V 350" fill="#181b22" stroke="#3dd6f5" stroke-width="1"/>
           <ellipse cx="240" cy="350" rx="38" ry="6" fill="none" stroke="#3dd6f5" stroke-width="1"/>
@@ -197,7 +200,7 @@
 
         <!-- Customer -> Booking Service: POST /bookings -->
         <path d="M 60 50 L 148 50" class="edge solid" stroke="#f5a623" marker-end="url(#arrow-init)"/>
-        <text x="104" y="44" class="edge-label" text-anchor="middle" style="fill:#f5a623">POST /bookings</text>
+        <text x="104" y="44" class="edge-label edge-label--accent3" text-anchor="middle">POST /bookings</text>
 
         <!-- Orchestrator -> Inventory: ReserveRoom command -->
         <path d="M 175 110 Q 130 140 100 168" class="edge solid" marker-end="url(#arrow-cmd)"/>
@@ -205,7 +208,7 @@
 
         <!-- Inventory -> Orchestrator: RoomReserved reply -->
         <path d="M 110 168 Q 160 140 195 110" class="edge dashed" marker-end="url(#arrow-reply)"/>
-        <text x="170" y="152" class="edge-label" text-anchor="middle" style="fill:#3dd6f5">2. RoomReserved</text>
+        <text x="170" y="152" class="edge-label edge-label--accent2" text-anchor="middle">2. RoomReserved</text>
 
         <!-- Orchestrator -> Payment: ChargeCard command -->
         <path d="M 240 110 L 240 168" class="edge solid" marker-end="url(#arrow-cmd)"/>
@@ -213,7 +216,7 @@
 
         <!-- Payment -> Orchestrator: PaymentApproved reply -->
         <path d="M 255 168 Q 280 140 280 110" class="edge dashed" marker-end="url(#arrow-reply)"/>
-        <text x="305" y="142" class="edge-label" style="fill:#3dd6f5">4. PaymentApproved</text>
+        <text x="305" y="142" class="edge-label edge-label--accent2">4. PaymentApproved</text>
 
         <!-- Orchestrator -> Notification: SendConfirmation command -->
         <path d="M 305 110 Q 350 140 380 168" class="edge solid" marker-end="url(#arrow-cmd)"/>
@@ -232,7 +235,7 @@
         <path d="M 200 348 L 240 343" class="edge dashed" marker-end="url(#arrow-reply)" stroke-opacity="0.6"/>
 
         <!-- Legend -->
-        <g transform="translate(20, 348)">
+        <g class="arch-legend" transform="translate(20, 348)">
           <line x1="0" y1="0" x2="14" y2="0" stroke="#4af0a0" stroke-width="1"/>
           <text x="18" y="3" class="edge-label">command</text>
           <line x1="68" y1="0" x2="82" y2="0" stroke="#3dd6f5" stroke-width="1" stroke-dasharray="3 3"/>
@@ -275,8 +278,8 @@
         <p class="form-hint" id="cf-hint">This will open your email client with the message pre-filled.</p>
       </form>
 
-      <div class="form" id="whatsapp-form" style="display:none">
-        <p class="form-hint" style="margin-bottom:4px">All fields are optional — fill in what you know.</p>
+      <div class="form form--hidden" id="whatsapp-form">
+        <p class="form-hint form-hint--intro">All fields are optional — fill in what you know.</p>
         <div class="form-group">
           <label class="form-label" for="wa-company">Company</label>
           <input type="text" id="wa-company" class="form-input" placeholder="Acme Corp" />
