@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<meta name="robots" content="index, follow, noarchive">
 <title>Blog — Alexander Tuskaev · Coming soon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
@@ -124,81 +126,7 @@
   <a href="index.html">← Portfolio</a>
 </footer>
 
-<script>
-  (function () {
-    const form = document.getElementById('notify-form');
-    if (!form) return;
-    const emailEl = document.getElementById('notify-email');
-    const hint = document.getElementById('notify-hint');
-    const RECIPIENT = 'amtuska@gmail.com';
-    const DEFAULT_HINT = "I'll email you once · no spam, ever.";
-
-    const setHint = (text, type) => {
-      hint.textContent = text;
-      hint.classList.remove('error', 'success');
-      if (type) hint.classList.add(type);
-    };
-
-    function showToast(message) {
-      const existing = document.getElementById('mail-toast');
-      if (existing) existing.remove();
-
-      const toast = document.createElement('div');
-      toast.id = 'mail-toast';
-      toast.className = 'toast';
-      toast.textContent = message;
-      document.body.appendChild(toast);
-
-      toast.offsetHeight; // force reflow
-      toast.classList.add('toast--visible');
-
-      setTimeout(() => {
-        toast.classList.remove('toast--visible');
-        toast.addEventListener('transitionend', () => toast.remove(), { once: true });
-      }, 3500);
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const email = emailEl.value.trim();
-      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!ok) {
-        setHint('Please enter a valid email address.', 'error');
-        return;
-      }
-
-      const subject = 'Blog launch — please notify me';
-      const body = [
-        'Hi Alexander,',
-        '',
-        'Please add me to the list — I\'d like to be notified when your blog goes live.',
-        '',
-        '—',
-        'Email: ' + email
-      ].join('\n');
-
-      const mailto =
-        'mailto:' + RECIPIENT +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-
-      window.location.href = mailto;
-
-      showToast('Redirected to your email client');
-
-      setTimeout(() => {
-        emailEl.value = '';
-        setHint(DEFAULT_HINT);
-      }, 1200);
-    });
-
-    emailEl.addEventListener('input', () => {
-      if (hint.classList.contains('error')) {
-        setHint(DEFAULT_HINT);
-      }
-    });
-  })();
-</script>
+<script src="blog-notify.js"></script>
 
 </body>
 </html>

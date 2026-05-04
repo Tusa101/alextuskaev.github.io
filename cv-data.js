@@ -7,8 +7,8 @@ window.CV_DATA = {
     "location": "Central District, Israel",
     "locationFlag": "🇮🇱",
     "status": "Available for opportunities",
-    "email": "amtuska@gmail.com",
-    "phone": "+972 55 771 7906",
+    "_e": "YW10dXNrYUBnbWFpbC5jb20=",
+    "_p": "Kzk3MiA1NSA3NzEgNzkwNg==",
     "bio": "Backend engineer with 5+ years shaping distributed systems — from splitting legacy monoliths into domain-driven microservices to architecting event-driven AI integrations. I write code that scales, systems that survive, and pipelines that just ship — and I love sketching architectures with C4, UML, and sequence diagrams before a single line of code is written. I've also led teams: mentoring engineers, running technical interviews, and owning delivery end-to-end."
   },
 
