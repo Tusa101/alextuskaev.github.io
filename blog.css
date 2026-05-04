@@ -490,6 +490,43 @@ nav {
     color: var(--accent);
 }
 
+/* ── TOAST ── */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    color: var(--text);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 10px 16px;
+    border-radius: 6px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.toast--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .toast {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    .toast--visible {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
 /* Back link */
 .back-link {
     display: inline-flex;

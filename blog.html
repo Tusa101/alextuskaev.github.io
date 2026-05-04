@@ -131,12 +131,32 @@
     const emailEl = document.getElementById('notify-email');
     const hint = document.getElementById('notify-hint');
     const RECIPIENT = 'amtuska@gmail.com';
+    const DEFAULT_HINT = "I'll email you once · no spam, ever.";
 
     const setHint = (text, type) => {
       hint.textContent = text;
       hint.classList.remove('error', 'success');
       if (type) hint.classList.add(type);
     };
+
+    function showToast(message) {
+      const existing = document.getElementById('mail-toast');
+      if (existing) existing.remove();
+
+      const toast = document.createElement('div');
+      toast.id = 'mail-toast';
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      toast.offsetHeight; // force reflow
+      toast.classList.add('toast--visible');
+
+      setTimeout(() => {
+        toast.classList.remove('toast--visible');
+        toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+      }, 3500);
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -163,12 +183,18 @@
         '&body=' + encodeURIComponent(body);
 
       window.location.href = mailto;
-      setHint('Opening your email client… thanks for your interest!', 'success');
+
+      showToast('Redirected to your email client');
+
+      setTimeout(() => {
+        emailEl.value = '';
+        setHint(DEFAULT_HINT);
+      }, 1200);
     });
 
     emailEl.addEventListener('input', () => {
       if (hint.classList.contains('error')) {
-        setHint("I'll email you once · no spam, ever.");
+        setHint(DEFAULT_HINT);
       }
     });
   })();
